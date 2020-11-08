@@ -1,4 +1,4 @@
 *.pyc
 *.png
 *.jpg
-db.splite3
+db.sqlite3
