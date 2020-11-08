@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Event(models.Model):
     title = models.CharField(max_length=30)
-    useEvent = models.ForeignKey(
+    userEvent = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="userEvent",
         on_delete=models.CASCADE  # 紐づいているUserが削除されたとき連動して削除される
