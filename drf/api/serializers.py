@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ("eventId", "title", "userEvent", "img")
+        fields = ("id", "title", "userEvent", "img")
         extra_kwargs = {"userEvent": {"read_only": True}}
 
 
@@ -29,12 +29,12 @@ class LogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Log
-        fields = ("logId", "userLog", "created_on", "event")
+        fields = ("id", "userLog", "created_on", "event")
         extra_kwargs = {"userLog": {"read_only": True}}
 
 
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detail
-        fields = ("detailId", "weight", "times", "userDetail", "log")
+        fields = ("id", "weight", "times", "userDetail", "log")
         extra_kwargs = {"userDetail": {"read_only": True}}

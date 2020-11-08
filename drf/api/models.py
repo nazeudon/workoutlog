@@ -70,11 +70,11 @@ class Log(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.created_on
+        return str(f"{self.event}_{self.created_on.strftime('%Y-%m-%d')}")
 
 
 class Detail(models.Model):
-    weight = models.DecimalField(
+    weight = models.DecimalField(  # 文字列になってしまう
         max_digits=4,  # 数字部分の最大桁数
         decimal_places=1,  # 少数部分の桁数
         default=0.0,
