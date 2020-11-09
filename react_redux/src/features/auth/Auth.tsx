@@ -69,7 +69,7 @@ const Auth: React.FC = () => {
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()
-              .email("emial format is wrong")
+              .email("email format is wrong")
               .required("email is must"),
             password: Yup.string().required("passwrod is must").min(4),
           })}
@@ -172,7 +172,7 @@ const Auth: React.FC = () => {
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()
-              .email("emial format is wrong")
+              .email("email format is wrong")
               .required("email is must"),
             password: Yup.string().required("passwrod is must").min(4),
           })}

@@ -1,9 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
+import eventReducer from "../features/event/eventSlice";
+import logReducer from "../features/log/logSlice";
+import detailRedecer from "../features/detail/detailSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    event: eventReducer,
+    log: logReducer,
+    detail: detailRedecer,
   },
 });
 

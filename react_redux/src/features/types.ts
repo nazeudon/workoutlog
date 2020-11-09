@@ -4,8 +4,60 @@ export interface File extends Blob {
   readonly name: string;
 }
 
-// authSlice.ts
+// authSlice
 export interface PROPS_AUTHEN {
   email: string;
   password: string;
+}
+
+// eventSlice
+export interface PROPS_NEWEVENT {
+  title: string;
+  img: File | null;
+}
+
+export interface PROPS_EVENT {
+  isLoadingEvent: boolean;
+  openNewEvent: boolean;
+  events: [
+    {
+      id: number;
+      title: string;
+      userEvent: number;
+      img: File | null;
+    }
+  ];
+}
+
+// logSlice
+export interface PROPS_LOG {
+  openNewLog: boolean;
+  logs: [
+    {
+      id: number;
+      userLog: number;
+      created_on: string;
+      event: number;
+    }
+  ];
+}
+
+// detailSlice
+export interface PROPS_NEWDETAIL {
+  weight: number;
+  times: number;
+  log: number;
+}
+
+export interface PROPS_DETAIL {
+  openNewDetail: boolean;
+  details: [
+    {
+      id: number;
+      weight: number;
+      times: number;
+      userDetail: number;
+      log: number;
+    }
+  ];
 }
