@@ -19,6 +19,9 @@ import {
   fetchAsyncLogin,
   fetchAsyncRegister,
 } from "./authSlice";
+import { fetchAsyncGetEvents } from "../event/eventSlice";
+import { fetchAsyncGetLogs } from "../log/logSlice";
+import { fetchAsyncGetDetails } from "../detail/detailSlice";
 
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
@@ -61,8 +64,9 @@ const Auth: React.FC = () => {
 
             if (fetchAsyncRegister.fulfilled.match(resultReg)) {
               await dispatch(fetchAsyncLogin(values));
-              //   await dispatch(fetchAsyncGetPosts());
-              //   await dispatch(fetchAsyncGetComments());
+              await dispatch(fetchAsyncGetEvents());
+              await dispatch(fetchAsyncGetLogs());
+              await dispatch(fetchAsyncGetDetails());
             }
             await dispatch(fetchCredEnd());
             await dispatch(resetOpenSignUp());
@@ -164,8 +168,9 @@ const Auth: React.FC = () => {
             const resultReg = await dispatch(fetchAsyncLogin(values));
 
             if (fetchAsyncLogin.fulfilled.match(resultReg)) {
-              //   await dispatch(fetchAsyncGetPosts());
-              //   await dispatch(fetchAsyncGetComments());
+              await dispatch(fetchAsyncGetEvents());
+              await dispatch(fetchAsyncGetLogs());
+              await dispatch(fetchAsyncGetDetails());
             }
             await dispatch(fetchCredEnd());
             await dispatch(resetOpenSignIn());

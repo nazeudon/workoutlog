@@ -3,7 +3,7 @@ import { RootState } from "../../app/store";
 import axios from "axios";
 import { PROPS_NEWEVENT, PROPS_EVENT } from "../types";
 
-const apiUrlEvent = `${process.env.REACT_APP_DEV_API_URL}/api/post/`;
+const apiUrlEvent = `${process.env.REACT_APP_DEV_API_URL}/api/event/`;
 
 //存在するイベント(種目)の取得
 export const fetchAsyncGetEvents = createAsyncThunk("event/get", async () => {
