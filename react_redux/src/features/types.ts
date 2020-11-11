@@ -17,16 +17,10 @@ export interface PROPS_NEWEVENT {
 }
 
 export interface PROPS_EVENT {
-  isLoadingEvent: boolean;
-  openNewEvent: boolean;
-  events: [
-    {
-      id: number;
-      title: string;
-      userEvent: number;
-      img: File | null;
-    }
-  ];
+  id: number;
+  title: string;
+  userEvent: number;
+  imageUrl: string;
 }
 
 // logSlice

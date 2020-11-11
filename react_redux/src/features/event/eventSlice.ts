@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { PROPS_NEWEVENT, PROPS_EVENT } from "../types";
+import { PROPS_NEWEVENT } from "../types";
 
 const apiUrlEvent = `${process.env.REACT_APP_DEV_API_URL}/api/event/`;
 
@@ -32,7 +32,7 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   }
 );
 
-const initialState: PROPS_EVENT = {
+const initialState = {
   isLoadingEvent: false,
   openNewEvent: false, //新種目追加用のモーダル
   events: [
@@ -40,7 +40,7 @@ const initialState: PROPS_EVENT = {
       id: 0,
       title: "",
       userEvent: 0,
-      img: null,
+      img: "",
     },
   ],
 };

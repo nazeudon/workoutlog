@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Auth from "../auth/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
@@ -23,6 +23,7 @@ import {
   Badge,
   CircularProgress,
 } from "@material-ui/core";
+import Event from "../event/Event";
 
 const Core: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -64,7 +65,9 @@ const Core: React.FC = () => {
               <FaDumbbell />
             </button>
             <div className={styles.core_logout}>
-              {(isLoadingEvent || isLoadingAuth) && <CircularProgress />}
+              {(isLoadingEvent || isLoadingAuth) && (
+                <CircularProgress className={styles.core_progress} />
+              )}
               <Button
                 onClick={() => {
                   localStorage.removeItem("localJWT");
@@ -82,6 +85,25 @@ const Core: React.FC = () => {
           <></>
         )}
       </div>
+
+      {isJwt && (
+        <>
+          <div className={styles.core_posts}>
+            <Grid container spacing={4}>
+              {events.slice(0).map((event) => (
+                <Grid key={event.id} item xs={12} md={4}>
+                  <Event
+                    id={event.id}
+                    title={event.title}
+                    userEvent={event.userEvent}
+                    imageUrl={event.img}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        </>
+      )}
     </div>
   );
 };

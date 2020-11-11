@@ -30,3 +30,13 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.core_progress {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.core_posts {
+  padding: 20px;
+}
