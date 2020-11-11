@@ -10,6 +10,10 @@ export interface PROPS_AUTHEN {
   password: string;
 }
 
+export interface PROPS_USERNAME {
+  userName: string;
+}
+
 // eventSlice
 export interface PROPS_NEWEVENT {
   title: string;

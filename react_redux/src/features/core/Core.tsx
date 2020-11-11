@@ -3,7 +3,7 @@ import Auth from "../auth/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { selectEvents, selectIsLoadingEvent } from "../event/eventSlice";
-import { selectIsLoadingAuth } from "../auth/authSlice";
+import { fetchAsyncGetMyProf, selectIsLoadingAuth } from "../auth/authSlice";
 import {
   setOpenSignIn,
   resetOpenSignIn,
@@ -42,6 +42,7 @@ const Core: React.FC = () => {
           dispatch(setOpenSignIn());
           return null;
         }
+        await dispatch(fetchAsyncGetMyProf());
         await dispatch(fetchAsyncGetLogs());
         await dispatch(fetchAsyncGetDetails());
       }

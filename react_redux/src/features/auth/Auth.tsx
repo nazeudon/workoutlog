@@ -19,6 +19,8 @@ import {
   fetchAsyncLogin,
   fetchAsyncRegister,
   setIsJwt,
+  fetchAsyncCreateProf,
+  fetchAsyncGetMyProf,
 } from "./authSlice";
 import { fetchAsyncGetEvents } from "../event/eventSlice";
 import { fetchAsyncGetLogs } from "../log/logSlice";
@@ -62,10 +64,12 @@ const Auth: React.FC = () => {
           onSubmit={async (values) => {
             await dispatch(fetchCredStart());
             const resultReg = await dispatch(fetchAsyncRegister(values));
+            const userName = values.email;
 
             if (fetchAsyncRegister.fulfilled.match(resultReg)) {
               await dispatch(fetchAsyncLogin(values));
               await dispatch(setIsJwt());
+              await dispatch(fetchAsyncCreateProf({ userName }));
               await dispatch(fetchAsyncGetEvents());
               await dispatch(fetchAsyncGetLogs());
               await dispatch(fetchAsyncGetDetails());
@@ -171,6 +175,7 @@ const Auth: React.FC = () => {
 
             if (fetchAsyncLogin.fulfilled.match(resultReg)) {
               await dispatch(setIsJwt());
+              await dispatch(fetchAsyncGetMyProf());
               await dispatch(fetchAsyncGetEvents());
               await dispatch(fetchAsyncGetLogs());
               await dispatch(fetchAsyncGetDetails());

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { PROPS_AUTHEN } from "../types";
+import { PROPS_AUTHEN, PROPS_USERNAME } from "../types";
 
 // .envファイルにパスを指定
 // process.envにつなぐことでパスとして認識してくれる
@@ -33,6 +33,33 @@ export const fetchAsyncRegister = createAsyncThunk(
   }
 );
 
+//プロフィール作成
+export const fetchAsyncCreateProf = createAsyncThunk(
+  "profile/post",
+  async (userName: PROPS_USERNAME) => {
+    const res = await axios.post(`${apiUrl}/api/profile/`, userName, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  }
+);
+
+//ログインユーザの取得
+export const fetchAsyncGetMyProf = createAsyncThunk(
+  "myprofile/get",
+  async () => {
+    const res = await axios.get(`${apiUrl}/api/myprofile/`, {
+      headers: {
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data[0];
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -40,6 +67,11 @@ export const authSlice = createSlice({
     openSignUp: false, //モーダル表示/非表示
     isLoadingAuth: false, //apiにアクセス中か否か
     isJwt: false,
+    myProfile: {
+      id: 0,
+      userProfile: 0,
+      created_on: "",
+    },
   },
   reducers: {
     //apiへのfetchを開始したとき
@@ -74,6 +106,12 @@ export const authSlice = createSlice({
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       localStorage.setItem("localJWT", action.payload.access);
     });
+    builder.addCase(fetchAsyncCreateProf.fulfilled, (state, action) => {
+      state.myProfile = action.payload;
+    });
+    builder.addCase(fetchAsyncGetMyProf.fulfilled, (state, action) => {
+      state.myProfile = action.payload;
+    });
   },
 });
 
@@ -93,5 +131,6 @@ export const selectIsLoadingAuth = (state: RootState) =>
 export const selectIsJwt = (state: RootState) => state.auth.isJwt;
 export const selectOpenSignIn = (state: RootState) => state.auth.openSignIn;
 export const selectOpenSignUp = (state: RootState) => state.auth.openSignUp;
+export const selectMyProfile = (state: RootState) => state.auth.myProfile;
 
 export default authSlice.reducer;
