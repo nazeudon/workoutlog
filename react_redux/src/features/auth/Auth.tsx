@@ -18,6 +18,7 @@ import {
   fetchCredEnd,
   fetchAsyncLogin,
   fetchAsyncRegister,
+  setIsJwt,
 } from "./authSlice";
 import { fetchAsyncGetEvents } from "../event/eventSlice";
 import { fetchAsyncGetLogs } from "../log/logSlice";
@@ -64,6 +65,7 @@ const Auth: React.FC = () => {
 
             if (fetchAsyncRegister.fulfilled.match(resultReg)) {
               await dispatch(fetchAsyncLogin(values));
+              await dispatch(setIsJwt());
               await dispatch(fetchAsyncGetEvents());
               await dispatch(fetchAsyncGetLogs());
               await dispatch(fetchAsyncGetDetails());
@@ -168,6 +170,7 @@ const Auth: React.FC = () => {
             const resultReg = await dispatch(fetchAsyncLogin(values));
 
             if (fetchAsyncLogin.fulfilled.match(resultReg)) {
+              await dispatch(setIsJwt());
               await dispatch(fetchAsyncGetEvents());
               await dispatch(fetchAsyncGetLogs());
               await dispatch(fetchAsyncGetDetails());

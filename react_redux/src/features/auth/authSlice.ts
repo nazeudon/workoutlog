@@ -39,6 +39,7 @@ export const authSlice = createSlice({
     openSignIn: true, //モーダル表示/非表示
     openSignUp: false, //モーダル表示/非表示
     isLoadingAuth: false, //apiにアクセス中か否か
+    isJwt: false,
   },
   reducers: {
     //apiへのfetchを開始したとき
@@ -61,6 +62,13 @@ export const authSlice = createSlice({
     resetOpenSignUp(state) {
       state.openSignUp = false;
     },
+
+    setIsJwt(state) {
+      state.isJwt = true;
+    },
+    resetIsJwt(state) {
+      state.isJwt = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
@@ -76,10 +84,13 @@ export const {
   resetOpenSignIn,
   setOpenSignUp,
   resetOpenSignUp,
+  setIsJwt,
+  resetIsJwt,
 } = authSlice.actions;
 
 export const selectIsLoadingAuth = (state: RootState) =>
   state.auth.isLoadingAuth;
+export const selectIsJwt = (state: RootState) => state.auth.isJwt;
 export const selectOpenSignIn = (state: RootState) => state.auth.openSignIn;
 export const selectOpenSignUp = (state: RootState) => state.auth.openSignUp;
 

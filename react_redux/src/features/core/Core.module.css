@@ -25,3 +25,8 @@
   outline: none;
   cursor: pointer;
 }
+
+.core_logout {
+  display: flex;
+  justify-content: flex-end;
+}
