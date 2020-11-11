@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from . import serializers
-from .models import Event, Log, Detail
+from .models import Event, Log, Detail, Profile
 
 
 # createに特化した汎用APIViewを継承
@@ -21,6 +21,25 @@ class EventViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(userEvent=self.request.user)
+
+
+# LogSerializerでuserLogをread_onlyにカスタムしたのでperform_createをオーバーライト
+# userLogにログインユーザーを割り当てる
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = serializers.ProfileSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(userProfile=self.request.user)
+
+
+# get_queryset関数のfilterでログインしているユーザーのみのプロフィールを返す
+class MyProfileListView(generics.ListAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = serializers.ProfileSerializer
+
+    def get_queryset(self):
+        return self.queryset.filter(userProfile=self.request.user)
 
 
 # LogSerializerでuserLogをread_onlyにカスタムしたのでperform_createをオーバーライト

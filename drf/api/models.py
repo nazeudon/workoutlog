@@ -47,6 +47,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Profile(models.Model):
+    userProfile = models.OneToOneField(
+        settings.AUTH_USER_MODEL,  # djangoのUserモデルとOneToOneで紐付ける
+        related_name="userProfile",
+        on_delete=models.CASCADE  # 紐づいているUserが削除されたとき連動してProfileも削除される
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"userID: {self.userProfile}"
+
+
 class Event(models.Model):
     title = models.CharField(max_length=30)
     userEvent = models.ForeignKey(

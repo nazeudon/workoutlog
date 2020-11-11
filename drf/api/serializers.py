@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Event, Log, Detail
+from .models import Event, Log, Detail, Profile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,6 +15,15 @@ class UserSerializer(serializers.ModelSerializer):
         # validated_data -> validation後の辞書型データ
         user = get_user_model().objects.create_user(**validated_data)
         return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    created_on = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ("id", "userProfile", "created_on")
+        extra_kwargs = {"userProfile": {"read_only": True}}
 
 
 class EventSerializer(serializers.ModelSerializer):
