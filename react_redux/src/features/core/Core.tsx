@@ -3,7 +3,11 @@ import Auth from "../auth/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { selectEvents, selectIsLoadingEvent } from "../event/eventSlice";
-import { fetchAsyncGetMyProf, selectIsLoadingAuth } from "../auth/authSlice";
+import {
+  fetchAsyncGetMyProf,
+  selectIsLoadingAuth,
+  resetMyProfile,
+} from "../auth/authSlice";
 import {
   setOpenSignIn,
   resetOpenSignIn,
@@ -11,18 +15,16 @@ import {
   resetIsJwt,
   selectIsJwt,
 } from "../auth/authSlice";
-import { fetchAsyncGetEvents, setOpenNewEvent } from "../event/eventSlice";
-import { fetchAsyncGetLogs } from "../log/logSlice";
-import { fetchAsyncGetDetails } from "../detail/detailSlice";
+import {
+  fetchAsyncGetEvents,
+  setOpenNewEvent,
+  resetEvents,
+} from "../event/eventSlice";
+import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
+import { fetchAsyncGetDetails, resetDetails } from "../detail/detailSlice";
 import styles from "./Core.module.css";
 import { FaDumbbell } from "react-icons/fa";
-import {
-  Button,
-  Grid,
-  Avatar,
-  Badge,
-  CircularProgress,
-} from "@material-ui/core";
+import { Button, Grid, CircularProgress } from "@material-ui/core";
 import Event from "../event/Event";
 
 const Core: React.FC = () => {
@@ -37,7 +39,7 @@ const Core: React.FC = () => {
       if (localStorage.localJWT) {
         dispatch(resetOpenSignIn());
         dispatch(setIsJwt());
-        const result = await dispatch(fetchAsyncGetEvents());
+        const result = await dispatch(fetchAsyncGetEvents()); //直す
         if (fetchAsyncGetEvents.rejected.match(result)) {
           dispatch(setOpenSignIn());
           return null;
@@ -72,9 +74,11 @@ const Core: React.FC = () => {
               <Button
                 onClick={() => {
                   localStorage.removeItem("localJWT");
-                  // dispatch(resetOpenProfile());
-                  // dispatch(resetOpenNewPost());
                   dispatch(resetIsJwt());
+                  dispatch(resetMyProfile());
+                  dispatch(resetEvents());
+                  dispatch(resetLogs());
+                  dispatch(resetDetails());
                   dispatch(setOpenSignIn());
                 }}
               >

@@ -28,17 +28,19 @@ export const fetchAsyncNewDetail = createAsyncThunk(
   }
 );
 
-const initialState: PROPS_DETAIL = {
+const initialDetails = [
+  {
+    id: 0,
+    weight: 0.0,
+    times: 0,
+    userDetail: 0,
+    log: 0,
+  },
+];
+
+const initialState = {
   openNewDetail: false, //新試技追加用のモーダル
-  details: [
-    {
-      id: 0,
-      weight: 0.0,
-      times: 0,
-      userDetail: 0,
-      log: 0,
-    },
-  ],
+  details: initialDetails,
 };
 
 export const detailSlice = createSlice({
@@ -50,6 +52,9 @@ export const detailSlice = createSlice({
     },
     resetOpenNewDetail(state) {
       state.openNewDetail = false;
+    },
+    resetDetails(state) {
+      state.details = initialDetails;
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +73,11 @@ export const detailSlice = createSlice({
   },
 });
 
-export const { setOpenNewDetail, resetOpenNewDetail } = detailSlice.actions;
+export const {
+  setOpenNewDetail,
+  resetOpenNewDetail,
+  resetDetails,
+} = detailSlice.actions;
 
 export const selectOpenNewDetail = (state: RootState) =>
   state.detail.openNewDetail;

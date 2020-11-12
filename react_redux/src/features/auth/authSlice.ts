@@ -60,19 +60,23 @@ export const fetchAsyncGetMyProf = createAsyncThunk(
   }
 );
 
+const initialMyProfile = {
+  id: 0,
+  userProfile: 0,
+  created_on: "",
+};
+
+const initialState = {
+  openSignIn: true, //モーダル表示/非表示
+  openSignUp: false, //モーダル表示/非表示
+  isLoadingAuth: false, //apiにアクセス中か否か
+  isJwt: false,
+  myProfile: initialMyProfile,
+};
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    openSignIn: true, //モーダル表示/非表示
-    openSignUp: false, //モーダル表示/非表示
-    isLoadingAuth: false, //apiにアクセス中か否か
-    isJwt: false,
-    myProfile: {
-      id: 0,
-      userProfile: 0,
-      created_on: "",
-    },
-  },
+  initialState: initialState,
   reducers: {
     //apiへのfetchを開始したとき
     fetchCredStart(state) {
@@ -101,6 +105,9 @@ export const authSlice = createSlice({
     resetIsJwt(state) {
       state.isJwt = false;
     },
+    resetMyProfile(state) {
+      state.myProfile = initialMyProfile;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
@@ -124,6 +131,7 @@ export const {
   resetOpenSignUp,
   setIsJwt,
   resetIsJwt,
+  resetMyProfile,
 } = authSlice.actions;
 
 export const selectIsLoadingAuth = (state: RootState) =>

@@ -25,16 +25,18 @@ export const fetchAsyncNewLog = createAsyncThunk("log/post", async () => {
   return res.data;
 });
 
-const initialState: PROPS_LOG = {
+const initialLogs = [
+  {
+    id: 0,
+    userLog: 0,
+    created_on: "",
+    event: 0,
+  },
+];
+
+const initialState = {
   openNewLog: false, //新ログ追加用のモーダル
-  logs: [
-    {
-      id: 0,
-      userLog: 0,
-      created_on: "",
-      event: 0,
-    },
-  ],
+  logs: initialLogs,
 };
 
 export const logSlice = createSlice({
@@ -46,6 +48,9 @@ export const logSlice = createSlice({
     },
     resetOpenNewLog(state) {
       state.openNewLog = false;
+    },
+    resetLogs(state) {
+      state.logs = initialLogs;
     },
   },
   extraReducers: (builder) => {
@@ -64,7 +69,7 @@ export const logSlice = createSlice({
   },
 });
 
-export const { setOpenNewLog, resetOpenNewLog } = logSlice.actions;
+export const { setOpenNewLog, resetOpenNewLog, resetLogs } = logSlice.actions;
 
 export const selectOpenNewLog = (state: RootState) => state.log.openNewLog;
 export const selectLogs = (state: RootState) => state.log.logs;

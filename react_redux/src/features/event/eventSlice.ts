@@ -32,17 +32,19 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   }
 );
 
+const initialEvents = [
+  {
+    id: 0,
+    title: "",
+    userEvent: 0,
+    img: "",
+  },
+];
+
 const initialState = {
   isLoadingEvent: false,
   openNewEvent: false, //新種目追加用のモーダル
-  events: [
-    {
-      id: 0,
-      title: "",
-      userEvent: 0,
-      img: "",
-    },
-  ],
+  events: initialEvents,
 };
 
 export const eventSlice = createSlice({
@@ -60,6 +62,9 @@ export const eventSlice = createSlice({
     },
     resetOpenNewEvent(state) {
       state.openNewEvent = false;
+    },
+    resetEvents(state) {
+      state.events = initialEvents;
     },
   },
   extraReducers: (builder) => {
@@ -83,6 +88,7 @@ export const {
   fetchPostEnd,
   setOpenNewEvent,
   resetOpenNewEvent,
+  resetEvents,
 } = eventSlice.actions;
 
 export const selectIsLoadingEvent = (state: RootState) =>
