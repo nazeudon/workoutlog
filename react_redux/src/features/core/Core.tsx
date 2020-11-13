@@ -14,6 +14,7 @@ import {
   setIsJwt,
   resetIsJwt,
   selectIsJwt,
+  selectMyProfile,
 } from "../auth/authSlice";
 import {
   fetchAsyncGetEvents,
@@ -33,6 +34,10 @@ const Core: React.FC = () => {
   const isLoadingAuth = useSelector(selectIsLoadingAuth);
   const isLoadingEvent = useSelector(selectIsLoadingEvent);
   const isJwt = useSelector(selectIsJwt);
+  const myProfile = useSelector(selectMyProfile);
+  const loginedIdEvents = events.filter(
+    (event) => myProfile.userProfile === event.userEvent
+  );
 
   useEffect(() => {
     const fetchBootLoader = async () => {
@@ -95,16 +100,19 @@ const Core: React.FC = () => {
         <>
           <div className={styles.core_posts}>
             <Grid container spacing={4}>
-              {events.slice(0).map((event) => (
-                <Grid key={event.id} item xs={12} md={4}>
-                  <Event
-                    id={event.id}
-                    title={event.title}
-                    userEvent={event.userEvent}
-                    imageUrl={event.img}
-                  />
-                </Grid>
-              ))}
+              {loginedIdEvents
+                // .slice(0)
+                // .filter((event) => myProfile.userProfile === event.userEvent)
+                .map((event) => (
+                  <Grid key={event.id} item xs={12} md={4}>
+                    <Event
+                      eventId={event.id}
+                      title={event.title}
+                      userEvent={event.userEvent}
+                      imageUrl={event.img}
+                    />
+                  </Grid>
+                ))}
             </Grid>
           </div>
         </>

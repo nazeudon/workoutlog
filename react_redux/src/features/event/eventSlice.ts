@@ -44,6 +44,7 @@ const initialEvents = [
 const initialState = {
   isLoadingEvent: false,
   openNewEvent: false, //新種目追加用のモーダル
+  selectedEventId: 0,
   events: initialEvents,
 };
 
@@ -65,6 +66,12 @@ export const eventSlice = createSlice({
     },
     resetEvents(state) {
       state.events = initialEvents;
+    },
+    fetchSetSelectedEventId(state, action) {
+      state.selectedEventId = action.payload;
+    },
+    fetchResetSelectedEventId(state) {
+      state.selectedEventId = 0;
     },
   },
   extraReducers: (builder) => {
@@ -89,6 +96,8 @@ export const {
   setOpenNewEvent,
   resetOpenNewEvent,
   resetEvents,
+  fetchSetSelectedEventId,
+  fetchResetSelectedEventId,
 } = eventSlice.actions;
 
 export const selectIsLoadingEvent = (state: RootState) =>
@@ -96,5 +105,7 @@ export const selectIsLoadingEvent = (state: RootState) =>
 export const selectOpenNewEvent = (state: RootState) =>
   state.event.openNewEvent;
 export const selectEvents = (state: RootState) => state.event.events;
+export const selectSelectedEventId = (state: RootState) =>
+  state.event.selectedEventId;
 
 export default eventSlice.reducer;

@@ -105,6 +105,7 @@ class Detail(models.Model):
         related_name="userDetail",
         on_delete=models.CASCADE
     )
+    # event = models.ForeignKey(Event, on_delete=models.CASCADE)
     log = models.ForeignKey(Log, on_delete=models.CASCADE)
 
     def __str__(self) -> str:

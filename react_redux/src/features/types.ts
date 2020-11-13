@@ -21,7 +21,7 @@ export interface PROPS_NEWEVENT {
 }
 
 export interface PROPS_EVENT {
-  id: number;
+  eventId: number;
   title: string;
   userEvent: number;
   imageUrl: string;
@@ -29,15 +29,11 @@ export interface PROPS_EVENT {
 
 // logSlice
 export interface PROPS_LOG {
-  openNewLog: boolean;
-  logs: [
-    {
-      id: number;
-      userLog: number;
-      created_on: string;
-      event: number;
-    }
-  ];
+  // eventId: number;
+  logId: number;
+  userLog: number;
+  created_on: string;
+  event: number;
 }
 
 // detailSlice
