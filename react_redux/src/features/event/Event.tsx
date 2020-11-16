@@ -85,18 +85,14 @@ const Event: React.FC<PROPS_EVENT> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {selectedEventIdLogs
-                // .slice(0)
-                // .filter((log) => eventId === log.event)
-                .map((log) => (
-                  <Log
-                    // eventId={eventId}
-                    logId={log.id}
-                    userLog={log.userLog}
-                    created_on={log.created_on}
-                    event={log.event}
-                  />
-                ))}
+              {selectedEventIdLogs.map((log) => (
+                <Log
+                  logId={log.id}
+                  userLog={log.userLog}
+                  created_on={log.created_on}
+                  event={log.event}
+                />
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

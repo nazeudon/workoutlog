@@ -29,17 +29,15 @@ const Log: React.FC<PROPS_LOG> = ({
   });
 
   return (
-    <div>
-      <TableRow key={logId}>
-        <TableCell component="th" scope="row">
-          {created_on}
-        </TableCell>
-        <TableCell align="right">{totalWeights.toFixed(1)}</TableCell>
-        {/* <TableCell align="right">{10}</TableCell> */}
-        {/* <TableCell align="right">{10}</TableCell>
-        <TableCell align="right">{10}</TableCell> */}
-      </TableRow>
-    </div>
+    <TableRow key={logId}>
+      <TableCell component="th" scope="row">
+        {created_on}
+      </TableCell>
+      <TableCell align="right">{totalWeights.toFixed(1)}</TableCell>
+      <TableCell align="right">"Dummy"</TableCell>
+      <TableCell align="right">"Dummy"</TableCell>
+      <TableCell align="right">"Dummy"</TableCell>
+    </TableRow>
   );
 };
 
