@@ -36,6 +36,7 @@ const initialLogs = [
 
 const initialState = {
   openNewLog: false, //新ログ追加用のモーダル
+  selectedLogId: 0,
   logs: initialLogs,
 };
 
@@ -51,6 +52,12 @@ export const logSlice = createSlice({
     },
     resetLogs(state) {
       state.logs = initialLogs;
+    },
+    fetchSetSelectedLogId(state, action) {
+      state.selectedLogId = action.payload;
+    },
+    fetchResetSelectedLogId(state) {
+      state.selectedLogId = 0;
     },
   },
   extraReducers: (builder) => {
@@ -69,9 +76,17 @@ export const logSlice = createSlice({
   },
 });
 
-export const { setOpenNewLog, resetOpenNewLog, resetLogs } = logSlice.actions;
+export const {
+  setOpenNewLog,
+  resetOpenNewLog,
+  resetLogs,
+  fetchSetSelectedLogId,
+  fetchResetSelectedLogId,
+} = logSlice.actions;
 
 export const selectOpenNewLog = (state: RootState) => state.log.openNewLog;
 export const selectLogs = (state: RootState) => state.log.logs;
+export const selectSelectedLogId = (state: RootState) =>
+  state.log.selectedLogId;
 
 export default logSlice.reducer;

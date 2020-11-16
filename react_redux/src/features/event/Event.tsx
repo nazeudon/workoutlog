@@ -60,9 +60,6 @@ const Event: React.FC<PROPS_EVENT> = ({
   const selectedEventIdLogs = logs.filter(
     (log) => log.event === selectedEventId
   );
-  // const selectedLogIdDetails = details.filter(
-  //   (detail) => detail.log ===
-  // )
 
   const classes = useStyles();
   return (
@@ -81,10 +78,10 @@ const Event: React.FC<PROPS_EVENT> = ({
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                {/* <TableCell align="right">Total&nbsp;(kg)</TableCell>
-                  <TableCell align="right">Max&nbsp;(kg)</TableCell>
-                  <TableCell align="right">Average&nbsp;(kg)</TableCell>
-                  <TableCell align="right">Sets&nbsp;(times)</TableCell> */}
+                <TableCell align="right">Total&nbsp;(kg)</TableCell>
+                <TableCell align="right">Max&nbsp;(kg)</TableCell>
+                <TableCell align="right">Average&nbsp;(kg)</TableCell>
+                <TableCell align="right">Sets&nbsp;(times)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

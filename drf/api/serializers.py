@@ -45,5 +45,5 @@ class LogSerializer(serializers.ModelSerializer):
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detail
-        fields = ("id", "weight", "times", "userDetail", "log")
+        fields = ("id", "weight", "times", "userDetail", "event", "log")
         extra_kwargs = {"userDetail": {"read_only": True}}

@@ -34,6 +34,7 @@ const initialDetails = [
     weight: 0.0,
     times: 0,
     userDetail: 0,
+    event: 0,
     log: 0,
   },
 ];

@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { PROPS_LOG } from "../types";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { selectDetails } from "../detail/detailSlice";
+import { selectSelectedEventId } from "../event/eventSlice";
+import { number } from "yup";
 
 const Log: React.FC<PROPS_LOG> = ({
   //   eventId,
@@ -11,15 +14,19 @@ const Log: React.FC<PROPS_LOG> = ({
   created_on,
   event,
 }) => {
-  //   const myProfile = useSelector(selectMyProfile);
-  //   console.log("----------");
-  //   console.log("created_on", created_on);
-  //   console.log("userLog", userLog);
-  //   console.log("userProfile", myProfile.userProfile);
-  //   //   console.log("eventID", eventId);
-  //   console.log("event", event);
-  //   console.log("logId", logId);
-  //   console.log("----------");
+  const selectedEventId = useSelector(selectSelectedEventId);
+  const details = useSelector(selectDetails);
+  const selectedEventIdDetails = details.filter(
+    (detail) => detail.event === selectedEventId
+  );
+  const selectedLogIdDetails = details.filter((detail) => detail.log === logId);
+
+  let totalWeights: number = 0;
+  selectedLogIdDetails.forEach((detail) => {
+    const weight: number = detail.weight;
+    // なぜか文字列として連結される
+    totalWeights += parseFloat(weight.toString());
+  });
 
   return (
     <div>
@@ -27,10 +34,10 @@ const Log: React.FC<PROPS_LOG> = ({
         <TableCell component="th" scope="row">
           {created_on}
         </TableCell>
-        {/* <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell> */}
+        <TableCell align="right">{totalWeights.toFixed(1)}</TableCell>
+        {/* <TableCell align="right">{10}</TableCell> */}
+        {/* <TableCell align="right">{10}</TableCell>
+        <TableCell align="right">{10}</TableCell> */}
       </TableRow>
     </div>
   );
