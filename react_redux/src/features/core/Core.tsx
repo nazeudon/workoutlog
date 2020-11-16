@@ -100,19 +100,16 @@ const Core: React.FC = () => {
         <>
           <div className={styles.core_posts}>
             <Grid container spacing={4}>
-              {loginedIdEvents
-                // .slice(0)
-                // .filter((event) => myProfile.userProfile === event.userEvent)
-                .map((event) => (
-                  <Grid key={event.id} item xs={12} md={4}>
-                    <Event
-                      eventId={event.id}
-                      title={event.title}
-                      userEvent={event.userEvent}
-                      imageUrl={event.img}
-                    />
-                  </Grid>
-                ))}
+              {loginedIdEvents.map((event) => (
+                <Grid key={event.id} item xs={12} md={4}>
+                  <Event
+                    eventId={event.id}
+                    title={event.title}
+                    userEvent={event.userEvent}
+                    imageUrl={event.img}
+                  />
+                </Grid>
+              ))}
             </Grid>
           </div>
         </>

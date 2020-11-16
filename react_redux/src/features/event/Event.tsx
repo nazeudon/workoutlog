@@ -24,7 +24,6 @@ import {
   selectSelectedEventId,
   fetchSetSelectedEventId,
 } from "./eventSlice";
-import { selectDetails } from "../detail/detailSlice";
 
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
@@ -56,7 +55,6 @@ const Event: React.FC<PROPS_EVENT> = ({
   const openNewLog = useSelector(selectOpenNewLog);
   const selectedEventId = useSelector(selectSelectedEventId);
   const logs = useSelector(selectLogs);
-  const details = useSelector(selectDetails);
   const selectedEventIdLogs = logs.filter(
     (log) => log.event === selectedEventId
   );
@@ -82,6 +80,7 @@ const Event: React.FC<PROPS_EVENT> = ({
                 <TableCell align="right">Max&nbsp;(kg)</TableCell>
                 <TableCell align="right">Average&nbsp;(kg)</TableCell>
                 <TableCell align="right">Sets&nbsp;(times)</TableCell>
+                <TableCell align="right">Estimated 1RM&nbsp;(kg)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

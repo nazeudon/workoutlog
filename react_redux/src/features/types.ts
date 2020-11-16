@@ -29,7 +29,6 @@ export interface PROPS_EVENT {
 
 // logSlice
 export interface PROPS_LOG {
-  // eventId: number;
   logId: number;
   userLog: number;
   created_on: string;
