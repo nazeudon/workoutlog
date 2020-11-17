@@ -25,6 +25,9 @@ import {
   fetchSetSelectedEventId,
 } from "./eventSlice";
 
+import { selectOpenNewEvent, resetOpenNewEvent } from "./eventSlice";
+import NewEvent from "./NewEvent";
+
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
   content: {
@@ -53,6 +56,7 @@ const Event: React.FC<PROPS_EVENT> = ({
 }) => {
   const dispatch: AppDispatch = useDispatch();
   const openNewLog = useSelector(selectOpenNewLog);
+  const openNewEvent = useSelector(selectOpenNewEvent);
   const selectedEventId = useSelector(selectSelectedEventId);
   const logs = useSelector(selectLogs);
   const selectedEventIdLogs = logs.filter(
@@ -62,7 +66,18 @@ const Event: React.FC<PROPS_EVENT> = ({
   const classes = useStyles();
   return (
     <>
-      <Modal
+      <Modal //新規種目追加用のモーダル
+        isOpen={openNewEvent}
+        //モーダル以外の箇所をクリックした時
+        onRequestClose={async () => {
+          await dispatch(resetOpenNewEvent());
+        }}
+        style={customStyles}
+      >
+        <NewEvent />
+      </Modal>
+
+      <Modal //新規ログ追加用のモーダル
         isOpen={openNewLog}
         //モーダル以外の箇所をクリックした時
         onRequestClose={async () => {

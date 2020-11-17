@@ -1,0 +1,10 @@
+.newEvent_signUp {
+  display: flex;
+  flex-direction: column;
+}
+
+.newEvent_title {
+  font-family: "Goldman", cursive;
+  font-weight: normal;
+  text-align: center;
+}
