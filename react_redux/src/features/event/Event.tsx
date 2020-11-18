@@ -30,6 +30,9 @@ import NewEvent from "./NewEvent";
 
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(250, 250, 250, 0.4)",
+  },
   content: {
     top: "55%",
     left: "50%",
@@ -66,6 +69,18 @@ const Event: React.FC<PROPS_EVENT> = ({
   const classes = useStyles();
   return (
     <>
+      <div className={styles.event}>
+        <img className={styles.event_image} src={imageUrl} alt="" />
+        <h2
+          className={styles.event_text}
+          onClick={async () => {
+            await dispatch(setOpenNewLog());
+            await dispatch(fetchSetSelectedEventId(eventId));
+          }}
+        >
+          {title}
+        </h2>
+      </div>
       <Modal //新規種目追加用のモーダル
         isOpen={openNewEvent}
         //モーダル以外の箇所をクリックした時
@@ -111,18 +126,6 @@ const Event: React.FC<PROPS_EVENT> = ({
           </Table>
         </TableContainer>
       </Modal>
-      <div className={styles.event}>
-        <img className={styles.event_image} src={imageUrl} alt="" />
-        <h2
-          className={styles.event_text}
-          onClick={async () => {
-            await dispatch(setOpenNewLog());
-            await dispatch(fetchSetSelectedEventId(eventId));
-          }}
-        >
-          {title}
-        </h2>
-      </div>
     </>
   );
 };
