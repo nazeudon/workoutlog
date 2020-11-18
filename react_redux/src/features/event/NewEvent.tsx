@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { TextField, Button, IconButton } from "@material-ui/core";
 import styles from "./NewEvent.module.css";
 import {
-  fetchAsyncGetEvents,
   fetchAsyncNewEvent,
   fetchPostEnd,
   fetchPostStart,
