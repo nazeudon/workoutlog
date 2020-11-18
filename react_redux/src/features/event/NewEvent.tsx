@@ -18,10 +18,6 @@ const NewEvent: React.FC = () => {
   const [title, setTitle] = useState("");
   const [img, setImg] = useState<File | null>(null);
 
-  // const addImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   // await setImg(e.target.files![0]);\
-  // };
-
   const addEvent = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const packet = {
