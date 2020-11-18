@@ -22,8 +22,6 @@ export const fetchAsyncNewEvent = createAsyncThunk(
     const uploadData = new FormData();
     uploadData.append("title", newEvent.title);
     newEvent.img && uploadData.append("img", newEvent.img, newEvent.img.name);
-    // newEvent.img && uploadData.append("img", newEvent.img);
-    console.log(uploadData);
     const res = await axios.post(apiUrlEvent, uploadData, {
       headers: {
         "Content-Type": "application/json",

@@ -15,8 +15,12 @@ import { MdAddAPhoto } from "react-icons/md";
 
 const NewEvent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const [title, settitle] = useState("");
+  const [title, setTitle] = useState("");
   const [img, setImg] = useState<File | null>(null);
+
+  // const addImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // await setImg(e.target.files![0]);\
+  // };
 
   const addEvent = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -27,7 +31,6 @@ const NewEvent: React.FC = () => {
 
     await dispatch(fetchPostStart());
     await dispatch(fetchAsyncNewEvent(packet));
-    // await dispatch(fetchAsyncGetEvents());
     await dispatch(fetchPostEnd());
     await dispatch(resetOpenNewEvent());
   };
@@ -47,7 +50,7 @@ const NewEvent: React.FC = () => {
           placeholder="ベンチプレス？"
           type="text"
           value={title}
-          onChange={(e) => settitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <input
@@ -56,11 +59,13 @@ const NewEvent: React.FC = () => {
           hidden={true}
           onChange={(e) => setImg(e.target.files![0])}
         />
+
         <br />
         <IconButton onClick={handlerEditPicture}>
           <MdAddAPhoto />
         </IconButton>
         <br />
+
         <Button
           disabled={!title}
           variant="contained"
