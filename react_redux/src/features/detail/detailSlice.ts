@@ -40,6 +40,7 @@ const initialDetails = [
 ];
 
 const initialState = {
+  openDetail: false, //既存試技閲覧用のモーダル
   openNewDetail: false, //新試技追加用のモーダル
   details: initialDetails,
 };
@@ -48,6 +49,12 @@ export const detailSlice = createSlice({
   name: "detail",
   initialState: initialState,
   reducers: {
+    setOpenDetail(state) {
+      state.openDetail = true;
+    },
+    resetOpenDetail(state) {
+      state.openDetail = false;
+    },
     setOpenNewDetail(state) {
       state.openNewDetail = true;
     },
@@ -75,11 +82,14 @@ export const detailSlice = createSlice({
 });
 
 export const {
+  setOpenDetail,
+  resetOpenDetail,
   setOpenNewDetail,
   resetOpenNewDetail,
   resetDetails,
 } = detailSlice.actions;
 
+export const selectOpenDetail = (state: RootState) => state.detail.openDetail;
 export const selectOpenNewDetail = (state: RootState) =>
   state.detail.openNewDetail;
 export const selectDetails = (state: RootState) => state.detail.details;

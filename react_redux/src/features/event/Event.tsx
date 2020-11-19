@@ -4,9 +4,9 @@ import { AppDispatch } from "../../app/store";
 import { PROPS_EVENT } from "../types";
 import styles from "./Event.module.css";
 import {
-  setOpenNewLog,
-  resetOpenNewLog,
-  selectOpenNewLog,
+  setOpenLog,
+  resetOpenLog,
+  selectOpenLog,
   selectLogs,
 } from "../log/logSlice";
 import Modal from "react-modal";
@@ -58,7 +58,7 @@ const Event: React.FC<PROPS_EVENT> = ({
   imageUrl,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const openNewLog = useSelector(selectOpenNewLog);
+  const openLog = useSelector(selectOpenLog);
   const openNewEvent = useSelector(selectOpenNewEvent);
   const selectedEventId = useSelector(selectSelectedEventId);
   const logs = useSelector(selectLogs);
@@ -74,7 +74,7 @@ const Event: React.FC<PROPS_EVENT> = ({
         <h2
           className={styles.event_text}
           onClick={async () => {
-            await dispatch(setOpenNewLog());
+            await dispatch(setOpenLog());
             await dispatch(fetchSetSelectedEventId(eventId));
           }}
         >
@@ -92,11 +92,11 @@ const Event: React.FC<PROPS_EVENT> = ({
         <NewEvent />
       </Modal>
 
-      <Modal //新規ログ追加用のモーダル
-        isOpen={openNewLog}
+      <Modal //ログ閲覧/新規追加用のモーダル
+        isOpen={openLog}
         //モーダル以外の箇所をクリックした時
         onRequestClose={async () => {
-          await dispatch(resetOpenNewLog());
+          await dispatch(resetOpenLog());
           await dispatch(fetchResetSelectedEventId());
         }}
         style={customStyles}

@@ -43,14 +43,9 @@ export interface PROPS_NEWDETAIL {
 }
 
 export interface PROPS_DETAIL {
-  openNewDetail: boolean;
-  details: [
-    {
-      id: number;
-      weight: number;
-      times: number;
-      userDetail: number;
-      log: number;
-    }
-  ];
+  detailId: number;
+  weight: number;
+  times: number;
+  userDetail: number;
+  log: number;
 }

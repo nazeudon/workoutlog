@@ -34,6 +34,7 @@ const initialLogs = [
 ];
 
 const initialState = {
+  openLog: false, //既存データ閲覧のモーダル
   openNewLog: false, //新ログ追加用のモーダル
   selectedLogId: 0,
   logs: initialLogs,
@@ -43,6 +44,12 @@ export const logSlice = createSlice({
   name: "log",
   initialState: initialState,
   reducers: {
+    setOpenLog(state) {
+      state.openLog = true;
+    },
+    resetOpenLog(state) {
+      state.openLog = false;
+    },
     setOpenNewLog(state) {
       state.openNewLog = true;
     },
@@ -76,6 +83,8 @@ export const logSlice = createSlice({
 });
 
 export const {
+  setOpenLog,
+  resetOpenLog,
   setOpenNewLog,
   resetOpenNewLog,
   resetLogs,
@@ -83,6 +92,7 @@ export const {
   fetchResetSelectedLogId,
 } = logSlice.actions;
 
+export const selectOpenLog = (state: RootState) => state.log.openLog;
 export const selectOpenNewLog = (state: RootState) => state.log.openNewLog;
 export const selectLogs = (state: RootState) => state.log.logs;
 export const selectSelectedLogId = (state: RootState) =>
