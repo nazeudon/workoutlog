@@ -43,6 +43,7 @@ export interface PROPS_NEWDETAIL {
 }
 
 export interface PROPS_DETAIL {
+  index: number;
   detailId: number;
   weight: number;
   times: number;

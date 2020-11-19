@@ -23,6 +23,7 @@ import {
   fetchSetSelectedLogId,
   setOpenLog,
   resetOpenLog,
+  selectSelectedLogId,
 } from "./logSlice";
 import Detail from "../detail/Detail";
 import styles from "./Log.module.css";
@@ -55,7 +56,11 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const details = useSelector(selectDetails);
   const classes = useStyles();
   const openDetail = useSelector(selectOpenDetail);
+  const selectedLogId = useSelector(selectSelectedLogId);
   const selectedLogIdDetails = details.filter((detail) => detail.log === logId);
+  const selectedLogIdDetail = details.filter(
+    (detail) => detail.log === selectedLogId
+  );
 
   let totalWeights: number = 0;
   let totalTimes: number = 0;
@@ -117,17 +122,15 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell align="right">Total&nbsp;(kg)</TableCell>
-                <TableCell align="right">Max&nbsp;(kg)</TableCell>
-                <TableCell align="right">Average&nbsp;(kg)</TableCell>
-                <TableCell align="right">Sets&nbsp;(times)</TableCell>
-                <TableCell align="right">Estimated 1RM&nbsp;(kg)</TableCell>
+                <TableCell>Set</TableCell>
+                <TableCell align="right">Weight&nbsp;(kg)</TableCell>
+                <TableCell align="right">Times&nbsp;(kg)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {selectedLogIdDetails.map((detail) => (
+              {selectedLogIdDetail.map((detail, index) => (
                 <Detail
+                  index={index}
                   detailId={detail.id}
                   weight={detail.weight}
                   times={detail.times}
