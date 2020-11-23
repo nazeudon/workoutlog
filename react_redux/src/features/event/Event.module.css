@@ -17,3 +17,24 @@
   padding: 5%;
   cursor: pointer;
 }
+
+.event_btnModal {
+  background-color: transparent;
+  color: gray;
+  padding-top: 0px;
+  font-size: 32px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.log_header {
+  object-fit: contain;
+  display: flex;
+  z-index: 1;
+  justify-content: space-between;
+}
+
+.log_titile {
+  color: gray;
+}

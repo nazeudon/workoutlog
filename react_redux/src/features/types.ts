@@ -35,6 +35,10 @@ export interface PROPS_LOG {
   event: number;
 }
 
+export interface PROPS_NEWLOG {
+  event: number;
+}
+
 // detailSlice
 export interface PROPS_NEWDETAIL {
   weight: number;

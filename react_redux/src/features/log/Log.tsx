@@ -22,7 +22,6 @@ import {
   fetchResetSelectedLogId,
   fetchSetSelectedLogId,
   setOpenLog,
-  resetOpenLog,
   selectSelectedLogId,
 } from "./logSlice";
 import Detail from "../detail/Detail";
@@ -124,7 +123,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
               <TableRow>
                 <TableCell>Set</TableCell>
                 <TableCell align="right">Weight&nbsp;(kg)</TableCell>
-                <TableCell align="right">Times&nbsp;(kg)</TableCell>
+                <TableCell align="right">Times</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

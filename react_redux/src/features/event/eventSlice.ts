@@ -45,6 +45,7 @@ const initialState = {
   isLoadingEvent: false,
   openNewEvent: false, //新種目追加用のモーダル
   selectedEventId: 0,
+  selectedEventTitle: "",
   events: initialEvents,
 };
 
@@ -73,6 +74,12 @@ export const eventSlice = createSlice({
     fetchResetSelectedEventId(state) {
       state.selectedEventId = 0;
     },
+    fetchSetSelectedEventTitle(state, action) {
+      state.selectedEventTitle = action.payload;
+    },
+    fetchResetSelectedEventTitle(state) {
+      state.selectedEventTitle = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetEvents.fulfilled, (state, action) => {
@@ -98,6 +105,8 @@ export const {
   resetEvents,
   fetchSetSelectedEventId,
   fetchResetSelectedEventId,
+  fetchSetSelectedEventTitle,
+  fetchResetSelectedEventTitle,
 } = eventSlice.actions;
 
 export const selectIsLoadingEvent = (state: RootState) =>
@@ -107,5 +116,7 @@ export const selectOpenNewEvent = (state: RootState) =>
 export const selectEvents = (state: RootState) => state.event.events;
 export const selectSelectedEventId = (state: RootState) =>
   state.event.selectedEventId;
+export const selectSelectedEventTitle = (state: RootState) =>
+  state.event.selectedEventTitle;
 
 export default eventSlice.reducer;

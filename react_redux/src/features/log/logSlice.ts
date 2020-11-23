@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
+import { PROPS_NEWLOG } from "../types";
 
 const apiUrlLog = `${process.env.REACT_APP_DEV_API_URL}/api/log/`;
 
@@ -15,14 +16,19 @@ export const fetchAsyncGetLogs = createAsyncThunk("log/get", async () => {
 });
 
 //新規ログの作成
-export const fetchAsyncNewLog = createAsyncThunk("log/post", async () => {
-  const res = await axios.post(apiUrlLog, {
-    headers: {
-      Authorization: `JWT ${localStorage.localJWT}`,
-    },
-  });
-  return res.data;
-});
+export const fetchAsyncNewLog = createAsyncThunk(
+  "log/post",
+  async (newLog: PROPS_NEWLOG) => {
+    const uploadData = new FormData();
+    uploadData.append("event", String(newLog.event));
+    const res = await axios.post(apiUrlLog, uploadData, {
+      headers: {
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  }
+);
 
 const initialLogs = [
   {
@@ -76,7 +82,7 @@ export const logSlice = createSlice({
     builder.addCase(fetchAsyncNewLog.fulfilled, (state, action) => {
       return {
         ...state,
-        posts: [...state.logs, action.payload],
+        logs: [...state.logs, action.payload],
       };
     });
   },

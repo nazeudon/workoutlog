@@ -8,25 +8,31 @@ import {
   resetOpenLog,
   selectOpenLog,
   selectLogs,
+  setOpenNewLog,
 } from "../log/logSlice";
 import Modal from "react-modal";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
 import Log from "../log/Log";
 import {
   fetchResetSelectedEventId,
   selectSelectedEventId,
+  selectSelectedEventTitle,
   fetchSetSelectedEventId,
+  fetchSetSelectedEventTitle,
+  fetchResetSelectedEventTitle,
 } from "./eventSlice";
-
 import { selectOpenNewEvent, resetOpenNewEvent } from "./eventSlice";
 import NewEvent from "./NewEvent";
+import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
 
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
@@ -65,6 +71,7 @@ const Event: React.FC<PROPS_EVENT> = ({
   const selectedEventIdLogs = logs.filter(
     (log) => log.event === selectedEventId
   );
+  const selectedEventTitle = useSelector(selectSelectedEventTitle);
 
   const classes = useStyles();
   return (
@@ -76,6 +83,7 @@ const Event: React.FC<PROPS_EVENT> = ({
           onClick={async () => {
             await dispatch(setOpenLog());
             await dispatch(fetchSetSelectedEventId(eventId));
+            await dispatch(fetchSetSelectedEventTitle(title));
           }}
         >
           {title}
@@ -98,9 +106,31 @@ const Event: React.FC<PROPS_EVENT> = ({
         onRequestClose={async () => {
           await dispatch(resetOpenLog());
           await dispatch(fetchResetSelectedEventId());
+          await dispatch(fetchResetSelectedEventTitle());
         }}
         style={customStyles}
       >
+        <div className={styles.log_header}>
+          <button
+            className={styles.event_btnModal}
+            onClick={async () => {
+              await dispatch(setOpenNewLog());
+            }}
+          >
+            <IoMdAddCircleOutline />
+          </button>
+          <h3 className={styles.log_titile}>{selectedEventTitle}</h3>
+          <button
+            className={styles.event_btnModal}
+            onClick={async () => {
+              await dispatch(resetOpenLog());
+              await dispatch(fetchResetSelectedEventId());
+              await dispatch(fetchResetSelectedEventTitle());
+            }}
+          >
+            <IoIosCloseCircleOutline />
+          </button>
+        </div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
