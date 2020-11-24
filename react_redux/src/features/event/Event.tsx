@@ -8,7 +8,7 @@ import {
   resetOpenLog,
   selectOpenLog,
   selectLogs,
-  setOpenNewLog,
+  fetchAsyncNewLog,
 } from "../log/logSlice";
 import Modal from "react-modal";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,11 +26,12 @@ import {
   fetchResetSelectedEventId,
   selectSelectedEventId,
   selectSelectedEventTitle,
+  selectOpenNewEvent,
+  resetOpenNewEvent,
   fetchSetSelectedEventId,
   fetchSetSelectedEventTitle,
   fetchResetSelectedEventTitle,
 } from "./eventSlice";
-import { selectOpenNewEvent, resetOpenNewEvent } from "./eventSlice";
 import NewEvent from "./NewEvent";
 import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
 
@@ -73,6 +74,12 @@ const Event: React.FC<PROPS_EVENT> = ({
   );
   const selectedEventTitle = useSelector(selectSelectedEventTitle);
 
+  const packet = {
+    event: selectedEventId,
+  };
+
+  const doNothing = () => {};
+
   const classes = useStyles();
   return (
     <>
@@ -114,21 +121,22 @@ const Event: React.FC<PROPS_EVENT> = ({
           <button
             className={styles.event_btnModal}
             onClick={async () => {
-              await dispatch(setOpenNewLog());
-            }}
-          >
-            <IoMdAddCircleOutline />
-          </button>
-          <h3 className={styles.log_titile}>{selectedEventTitle}</h3>
-          <button
-            className={styles.event_btnModal}
-            onClick={async () => {
               await dispatch(resetOpenLog());
               await dispatch(fetchResetSelectedEventId());
               await dispatch(fetchResetSelectedEventTitle());
             }}
           >
             <IoIosCloseCircleOutline />
+          </button>
+          <h3 className={styles.log_titile}>{selectedEventTitle}</h3>
+          <button
+            className={styles.event_btnModal}
+            onClick={async () => {
+              const result = window.confirm("新規ログを作成しますか？");
+              result ? await dispatch(fetchAsyncNewLog(packet)) : doNothing();
+            }}
+          >
+            <IoMdAddCircleOutline />
           </button>
         </div>
         <TableContainer component={Paper}>

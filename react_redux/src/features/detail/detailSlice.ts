@@ -18,8 +18,12 @@ export const fetchAsyncGetDetails = createAsyncThunk("detail/get", async () => {
 //新規workoutの作成
 export const fetchAsyncNewDetail = createAsyncThunk(
   "detail/post",
-  async (detail: PROPS_NEWDETAIL) => {
-    const res = await axios.post(apiUrlDetail, detail, {
+  async (newDetail: PROPS_NEWDETAIL) => {
+    const uploadData = new FormData(); //Bad Requestが出てしまう
+    uploadData.append("weight", String(newDetail.weight));
+    uploadData.append("times", String(newDetail.times));
+    uploadData.append("log", String(newDetail.log));
+    const res = await axios.post(apiUrlDetail, uploadData, {
       headers: {
         Authorization: `JWT ${localStorage.localJWT}`,
       },

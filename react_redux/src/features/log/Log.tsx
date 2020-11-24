@@ -1,15 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PROPS_LOG } from "../types";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 import {
-  setOpenDetail,
-  resetOpenDetail,
-  selectDetails,
-  selectOpenDetail,
-} from "../detail/detailSlice";
-import {
+  TableCell,
+  TableRow,
   makeStyles,
   Paper,
   Table,
@@ -17,6 +11,14 @@ import {
   TableContainer,
   TableHead,
 } from "@material-ui/core";
+import {
+  setOpenDetail,
+  resetOpenDetail,
+  selectDetails,
+  selectOpenDetail,
+  fetchAsyncNewDetail,
+} from "../detail/detailSlice";
+import {} from "@material-ui/core";
 import Modal from "react-modal";
 import {
   fetchResetSelectedLogId,
@@ -24,8 +26,10 @@ import {
   setOpenLog,
   selectSelectedLogId,
 } from "./logSlice";
+import { selectSelectedEventTitle } from "../event/eventSlice";
 import Detail from "../detail/Detail";
 import styles from "./Log.module.css";
+import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
 
 // tableの見た目
 const useStyles = makeStyles({
@@ -55,6 +59,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const details = useSelector(selectDetails);
   const classes = useStyles();
   const openDetail = useSelector(selectOpenDetail);
+  const selectedEventTitle = useSelector(selectSelectedEventTitle);
   const selectedLogId = useSelector(selectSelectedLogId);
   const selectedLogIdDetails = details.filter((detail) => detail.log === logId);
   const selectedLogIdDetail = details.filter(
@@ -84,6 +89,12 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
     aveWeight = totalWeights / totalTimes;
     estimated1RM = oneRM > estimated1RM ? oneRM : estimated1RM;
   });
+
+  const packet = {
+    weight: 0,
+    times: 0,
+    log: selectedLogId,
+  };
 
   return (
     <>
@@ -117,6 +128,26 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
         }}
         style={customStyles}
       >
+        <div className={styles.detail_header}>
+          <button
+            className={styles.log_btnModal}
+            onClick={async () => {
+              await dispatch(resetOpenDetail());
+              await dispatch(fetchResetSelectedLogId());
+            }}
+          >
+            <IoIosCloseCircleOutline />
+          </button>
+          <h3 className={styles.detail_titile}>{selectedEventTitle}</h3>
+          <button
+            className={styles.log_btnModal}
+            onClick={async () => {
+              await dispatch(fetchAsyncNewDetail(packet));
+            }}
+          >
+            <IoMdAddCircleOutline />
+          </button>
+        </div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>

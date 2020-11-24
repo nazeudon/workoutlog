@@ -1,3 +1,24 @@
 .log_date {
   cursor: pointer;
 }
+
+.log_btnModal {
+  background-color: transparent;
+  color: gray;
+  padding-top: 0px;
+  font-size: 32px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.detail_header {
+  object-fit: contain;
+  display: flex;
+  z-index: 1;
+  justify-content: space-between;
+}
+
+.detail_titile {
+  color: gray;
+}
