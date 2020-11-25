@@ -26,7 +26,10 @@ import {
   setOpenLog,
   selectSelectedLogId,
 } from "./logSlice";
-import { selectSelectedEventTitle } from "../event/eventSlice";
+import {
+  selectSelectedEventId,
+  selectSelectedEventTitle,
+} from "../event/eventSlice";
 import Detail from "../detail/Detail";
 import styles from "./Log.module.css";
 import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
@@ -59,6 +62,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const details = useSelector(selectDetails);
   const classes = useStyles();
   const openDetail = useSelector(selectOpenDetail);
+  const selectedEventId = useSelector(selectSelectedEventId);
   const selectedEventTitle = useSelector(selectSelectedEventTitle);
   const selectedLogId = useSelector(selectSelectedLogId);
   const selectedLogIdDetails = details.filter((detail) => detail.log === logId);
@@ -93,6 +97,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const packet = {
     weight: 0,
     times: 0,
+    event: selectedEventId,
     log: selectedLogId,
   };
 

@@ -43,6 +43,7 @@ export interface PROPS_NEWLOG {
 export interface PROPS_NEWDETAIL {
   weight: number;
   times: number;
+  event: number;
   log: number;
 }
 

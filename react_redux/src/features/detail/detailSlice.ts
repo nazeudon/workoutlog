@@ -22,6 +22,7 @@ export const fetchAsyncNewDetail = createAsyncThunk(
     const uploadData = new FormData(); //Bad Requestが出てしまう
     uploadData.append("weight", String(newDetail.weight));
     uploadData.append("times", String(newDetail.times));
+    uploadData.append("event", String(newDetail.event));
     uploadData.append("log", String(newDetail.log));
     const res = await axios.post(apiUrlDetail, uploadData, {
       headers: {
@@ -79,7 +80,7 @@ export const detailSlice = createSlice({
     builder.addCase(fetchAsyncNewDetail.fulfilled, (state, action) => {
       return {
         ...state,
-        posts: [...state.details, action.payload],
+        details: [...state.details, action.payload],
       };
     });
   },
