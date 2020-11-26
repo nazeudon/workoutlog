@@ -1,0 +1,13 @@
+.detail_btnModal {
+  background-color: transparent;
+  color: gray;
+  padding-top: 3px;
+  font-size: 28px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.detail_text {
+  font-size: 10px;
+}

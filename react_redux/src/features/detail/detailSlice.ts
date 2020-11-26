@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { PROPS_NEWDETAIL } from "../types";
+import { PROPS_NEWDETAIL, PROPS_UPDATEDETAIL } from "../types";
 
 const apiUrlDetail = `${process.env.REACT_APP_DEV_API_URL}/api/detail/`;
 
@@ -19,7 +19,7 @@ export const fetchAsyncGetDetails = createAsyncThunk("detail/get", async () => {
 export const fetchAsyncNewDetail = createAsyncThunk(
   "detail/post",
   async (newDetail: PROPS_NEWDETAIL) => {
-    const uploadData = new FormData(); //Bad Requestが出てしまう
+    const uploadData = new FormData();
     uploadData.append("weight", String(newDetail.weight));
     uploadData.append("times", String(newDetail.times));
     uploadData.append("event", String(newDetail.event));
@@ -29,6 +29,29 @@ export const fetchAsyncNewDetail = createAsyncThunk(
         Authorization: `JWT ${localStorage.localJWT}`,
       },
     });
+    return res.data;
+  }
+);
+
+//workoutの編集
+export const fetchAsyncUpdateDetail = createAsyncThunk(
+  "detail/put",
+  async (updateDetail: PROPS_UPDATEDETAIL) => {
+    const uploadData = new FormData();
+    uploadData.append("weight", String(updateDetail.weight));
+    uploadData.append("times", String(updateDetail.times));
+    uploadData.append("event", String(updateDetail.event));
+    uploadData.append("log", String(updateDetail.log));
+    const res = await axios.put(
+      `${apiUrlDetail}${updateDetail.detailId}/`,
+      uploadData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.localJWT}`,
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -82,6 +105,11 @@ export const detailSlice = createSlice({
         ...state,
         details: [...state.details, action.payload],
       };
+    });
+    builder.addCase(fetchAsyncUpdateDetail.fulfilled, (state, action) => {
+      state.details = state.details.map((detail) =>
+        detail.id === action.payload.id ? action.payload : detail
+      );
     });
   },
 });

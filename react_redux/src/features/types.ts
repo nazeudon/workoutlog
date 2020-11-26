@@ -47,6 +47,14 @@ export interface PROPS_NEWDETAIL {
   log: number;
 }
 
+export interface PROPS_UPDATEDETAIL {
+  detailId: number;
+  weight: number;
+  times: number;
+  event: number;
+  log: number;
+}
+
 export interface PROPS_DETAIL {
   index: number;
   detailId: number;
