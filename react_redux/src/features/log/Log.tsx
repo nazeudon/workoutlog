@@ -23,8 +23,11 @@ import Modal from "react-modal";
 import {
   fetchResetSelectedLogId,
   fetchSetSelectedLogId,
+  setSelectedLogCreatedOn,
+  resetSelectedLogCreatedOn,
   setOpenLog,
   selectSelectedLogId,
+  selectSelectedLogCreatedOn,
 } from "./logSlice";
 import {
   selectSelectedEventId,
@@ -65,16 +68,17 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const selectedEventId = useSelector(selectSelectedEventId);
   const selectedEventTitle = useSelector(selectSelectedEventTitle);
   const selectedLogId = useSelector(selectSelectedLogId);
+  const selectedLogCreatedOn = useSelector(selectSelectedLogCreatedOn);
   const selectedLogIdDetails = details.filter((detail) => detail.log === logId);
   const selectedLogIdDetail = details.filter(
     (detail) => detail.log === selectedLogId
   );
 
   let totalWeights: number = 0;
-  let totalTimes: number = 0;
+  // let totalTimes: number = 0;
   let totalSets: number = 0;
   let maxWeight: number = 0;
-  let aveWeight: number = 0;
+  // let aveWeight: number = 0;
   let estimated1RM: number = 0;
   selectedLogIdDetails.forEach((detail) => {
     const weight: number = detail.weight;
@@ -87,10 +91,10 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
           );
     // なぜか文字列として連結される
     totalWeights += parseFloat((weight * times).toString());
-    totalTimes += parseInt(times.toString());
+    // totalTimes += parseInt(times.toString());
     totalSets += 1;
     maxWeight = weight > maxWeight ? weight : maxWeight;
-    aveWeight = totalWeights / totalTimes;
+    // aveWeight = totalWeights / totalTimes;
     estimated1RM = oneRM > estimated1RM ? oneRM : estimated1RM;
   });
 
@@ -110,6 +114,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
             onClick={async () => {
               // await dispatch(resetOpenLog());
               await dispatch(fetchSetSelectedLogId(logId));
+              await dispatch(setSelectedLogCreatedOn(created_on));
               await dispatch(setOpenDetail());
             }}
           >
@@ -118,7 +123,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
         </TableCell>
         <TableCell align="right">{totalWeights.toFixed(1)}</TableCell>
         <TableCell align="right">{maxWeight}</TableCell>
-        <TableCell align="right">{aveWeight.toFixed(1)}</TableCell>
+        {/* <TableCell align="right">{aveWeight.toFixed(1)}</TableCell> */}
         <TableCell align="right">{totalSets}</TableCell>
         <TableCell align="right">{estimated1RM.toFixed(1)}</TableCell>
       </TableRow>
@@ -129,6 +134,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
         onRequestClose={async () => {
           await dispatch(resetOpenDetail());
           await dispatch(fetchResetSelectedLogId());
+          await dispatch(resetSelectedLogCreatedOn());
           await dispatch(setOpenLog());
         }}
         style={customStyles}
@@ -139,11 +145,16 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
             onClick={async () => {
               await dispatch(resetOpenDetail());
               await dispatch(fetchResetSelectedLogId());
+              await dispatch(resetSelectedLogCreatedOn());
             }}
           >
             <IoIosCloseCircleOutline />
           </button>
-          <h3 className={styles.detail_titile}>{selectedEventTitle}</h3>
+          <div className={styles.detail_title_header}>
+            <h3 className={styles.detail_title}>{selectedEventTitle}</h3>
+            <h3 className={styles.detail_title_between}>/</h3>
+            <h3 className={styles.detail_title}>{selectedLogCreatedOn}</h3>
+          </div>
           <button
             className={styles.log_btnModal}
             onClick={async () => {

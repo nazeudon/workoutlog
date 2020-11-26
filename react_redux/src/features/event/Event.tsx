@@ -146,7 +146,7 @@ const Event: React.FC<PROPS_EVENT> = ({
                 <TableCell>Date</TableCell>
                 <TableCell align="right">Total&nbsp;(kg)</TableCell>
                 <TableCell align="right">Max&nbsp;(kg)</TableCell>
-                <TableCell align="right">Average&nbsp;(kg)</TableCell>
+                {/* <TableCell align="right">Average&nbsp;(kg)</TableCell> */}
                 <TableCell align="right">Sets&nbsp;(times)</TableCell>
                 <TableCell align="right">Estimated 1RM&nbsp;(kg)</TableCell>
               </TableRow>

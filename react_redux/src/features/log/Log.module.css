@@ -19,6 +19,15 @@
   justify-content: space-between;
 }
 
-.detail_titile {
+.detail_title {
   color: gray;
+}
+
+.detail_title_header {
+  display: flex;
+}
+
+.detail_title_between {
+  color: gray;
+  padding: 0 5px;
 }

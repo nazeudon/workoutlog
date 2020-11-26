@@ -43,6 +43,7 @@ const initialState = {
   openLog: false, //既存データ閲覧のモーダル
   openNewLog: false, //新ログ追加用のモーダル
   selectedLogId: 0,
+  selectedLogCreatedOn: "",
   logs: initialLogs,
 };
 
@@ -71,6 +72,12 @@ export const logSlice = createSlice({
     fetchResetSelectedLogId(state) {
       state.selectedLogId = 0;
     },
+    setSelectedLogCreatedOn(state, action) {
+      state.selectedLogCreatedOn = action.payload;
+    },
+    resetSelectedLogCreatedOn(state) {
+      state.selectedLogCreatedOn = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetLogs.fulfilled, (state, action) => {
@@ -96,6 +103,8 @@ export const {
   resetLogs,
   fetchSetSelectedLogId,
   fetchResetSelectedLogId,
+  setSelectedLogCreatedOn,
+  resetSelectedLogCreatedOn,
 } = logSlice.actions;
 
 export const selectOpenLog = (state: RootState) => state.log.openLog;
@@ -103,5 +112,7 @@ export const selectOpenNewLog = (state: RootState) => state.log.openNewLog;
 export const selectLogs = (state: RootState) => state.log.logs;
 export const selectSelectedLogId = (state: RootState) =>
   state.log.selectedLogId;
+export const selectSelectedLogCreatedOn = (state: RootState) =>
+  state.log.selectedLogCreatedOn;
 
 export default logSlice.reducer;
