@@ -3,6 +3,7 @@ import authReducer from "../features/auth/authSlice";
 import eventReducer from "../features/event/eventSlice";
 import logReducer from "../features/log/logSlice";
 import detailRedecer from "../features/detail/detailSlice";
+import plotResucer from "../features/plot/plotSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     event: eventReducer,
     log: logReducer,
     detail: detailRedecer,
+    plot: plotResucer,
   },
 });
 

@@ -1,10 +1,10 @@
-import { TableCell, TableRow } from "@material-ui/core";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../app/store";
 import { PROPS_DETAIL } from "../types";
-import { TextField } from "@material-ui/core";
+import { TableCell, TableRow, TextField } from "@material-ui/core";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import styles from "./Detail.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchAsyncUpdateDetail } from "./detailSlice";
 import { selectSelectedEventId } from "../event/eventSlice";
 import { selectSelectedLogId } from "../log/logSlice";
@@ -22,7 +22,7 @@ const Detail: React.FC<PROPS_DETAIL> = ({
   const [isEdit, toggleIsEdit] = useState(false);
   const selectedEventId = useSelector(selectSelectedEventId);
   const selectedLogId = useSelector(selectSelectedLogId);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const updateDetail = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();

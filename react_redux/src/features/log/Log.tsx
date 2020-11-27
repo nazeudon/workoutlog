@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../app/store";
 import { PROPS_LOG } from "../types";
 import {
   TableCell,
@@ -18,7 +19,6 @@ import {
   selectOpenDetail,
   fetchAsyncNewDetail,
 } from "../detail/detailSlice";
-import {} from "@material-ui/core";
 import Modal from "react-modal";
 import {
   fetchResetSelectedLogId,
@@ -33,9 +33,11 @@ import {
   selectSelectedEventId,
   selectSelectedEventTitle,
 } from "../event/eventSlice";
+import { resetOpenPlot, selectOpenPlot } from "../plot/plotSlice";
 import Detail from "../detail/Detail";
 import styles from "./Log.module.css";
 import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
+import Plot from "../plot/Plot";
 
 // tableの見た目
 const useStyles = makeStyles({
@@ -61,10 +63,11 @@ const customStyles = {
 };
 
 const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const details = useSelector(selectDetails);
   const classes = useStyles();
   const openDetail = useSelector(selectOpenDetail);
+  const openPlot = useSelector(selectOpenPlot);
   const selectedEventId = useSelector(selectSelectedEventId);
   const selectedEventTitle = useSelector(selectSelectedEventTitle);
   const selectedLogId = useSelector(selectSelectedLogId);
@@ -187,6 +190,32 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
             </TableBody>
           </Table>
         </TableContainer>
+      </Modal>
+
+      <Modal //plot閲覧用のモーダル
+        isOpen={openPlot}
+        //モーダル以外の箇所をクリックした時
+        onRequestClose={async () => {
+          await dispatch(resetOpenPlot());
+          await dispatch(setOpenLog());
+        }}
+        style={customStyles}
+      >
+        <div className={styles.detail_header}>
+          <button
+            className={styles.log_btnModal}
+            onClick={async () => {
+              await dispatch(resetOpenPlot());
+              await dispatch(setOpenLog());
+            }}
+          >
+            <IoIosCloseCircleOutline />
+          </button>
+          <div className={styles.detail_title_header}>
+            <h3 className={styles.detail_title}>{selectedEventTitle}</h3>
+          </div>
+        </div>
+        <Plot />
       </Modal>
     </>
   );

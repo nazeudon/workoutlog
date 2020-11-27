@@ -34,6 +34,8 @@ import {
 } from "./eventSlice";
 import NewEvent from "./NewEvent";
 import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
+import { BsGraphUp } from "react-icons/bs";
+import { setOpenPlot } from "../plot/plotSlice";
 
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
@@ -129,15 +131,25 @@ const Event: React.FC<PROPS_EVENT> = ({
             <IoIosCloseCircleOutline />
           </button>
           <h3 className={styles.log_titile}>{selectedEventTitle}</h3>
-          <button
-            className={styles.event_btnModal}
-            onClick={async () => {
-              const result = window.confirm("新規ログを作成しますか？");
-              result ? await dispatch(fetchAsyncNewLog(packet)) : doNothing();
-            }}
-          >
-            <IoMdAddCircleOutline />
-          </button>
+          <div>
+            <button
+              className={styles.event_btnModal}
+              onClick={async () => {
+                await dispatch(setOpenPlot());
+              }}
+            >
+              <BsGraphUp />
+            </button>
+            <button
+              className={styles.event_btnModal}
+              onClick={async () => {
+                const result = window.confirm("新規ログを作成しますか？");
+                result ? await dispatch(fetchAsyncNewLog(packet)) : doNothing();
+              }}
+            >
+              <IoMdAddCircleOutline />
+            </button>
+          </div>
         </div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
