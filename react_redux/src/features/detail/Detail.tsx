@@ -55,6 +55,7 @@ const Detail: React.FC<PROPS_DETAIL> = ({
                 name="weight"
                 onChange={(e) => setEditWeight(e.target.value)}
                 value={editWeight}
+                autoFocus
               />
             </form>
           ) : (
