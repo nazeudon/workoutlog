@@ -1,14 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
-import {
-  selectSelectedEventId,
-  selectSelectedEventTitle,
-} from "../event/eventSlice";
+import { selectSelectedEventId } from "../event/eventSlice";
 import { selectLogs } from "../log/logSlice";
 import { selectDetails } from "../detail/detailSlice";
 
-const Plot: React.FC = () => {
+const EstimatedMaxWeightPlot: React.FC = () => {
   const selectedEventId = useSelector(selectSelectedEventId);
   const logs = useSelector(selectLogs);
   const details = useSelector(selectDetails);
@@ -19,29 +16,36 @@ const Plot: React.FC = () => {
     (detail) => detail.event === selectedEventId
   );
 
-  let allTotalWeights: number[] = [];
+  let allEstimatedOneRM: number[] = [];
   let allCreatedOn: string[] = [];
   selectedEventIdLogs.forEach((log) => {
-    let totalWeights: number = 0;
+    let estimatedOneRM: number = 0;
     const createdOn: string = log.created_on;
     selectedEventIdDetails.forEach((detail) => {
       if (detail.log === log.id) {
         const weight: number = detail.weight;
         const times: number = detail.times;
-        // なぜか文字列として連結される
-        totalWeights += parseFloat((weight * times).toString());
+        let oneRM: number =
+          times === 1
+            ? weight
+            : parseFloat(
+                (
+                  (weight * times) / 40 +
+                  parseFloat(weight.toString())
+                ).toString()
+              );
+        estimatedOneRM = oneRM > estimatedOneRM ? oneRM : estimatedOneRM;
       }
     });
-    allTotalWeights.push(totalWeights);
+    allEstimatedOneRM.push(estimatedOneRM);
     allCreatedOn.push(createdOn);
   });
-
   const data = {
     labels: allCreatedOn,
     datasets: [
       {
-        data: allTotalWeights,
-        label: "Changes in total weight",
+        data: allEstimatedOneRM,
+        // label: "Changes in total weight",
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,0.4)",
@@ -62,11 +66,17 @@ const Plot: React.FC = () => {
       },
     ],
   };
+
+  const options = {
+    legend: {
+      display: false,
+    },
+  };
   return (
     <>
-      <Line data={data} />
+      <Line data={data} options={options} />
     </>
   );
 };
 
-export default Plot;
+export default EstimatedMaxWeightPlot;

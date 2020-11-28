@@ -33,11 +33,19 @@ import {
   selectSelectedEventId,
   selectSelectedEventTitle,
 } from "../event/eventSlice";
-import { resetOpenPlot, selectOpenPlot } from "../plot/plotSlice";
+import {
+  resetOpenPlot,
+  selectOpenPlot,
+  selectPlotType,
+  switchPlotType,
+  resetPlotType,
+} from "../plot/plotSlice";
 import Detail from "../detail/Detail";
 import styles from "./Log.module.css";
 import { IoMdAddCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
-import Plot from "../plot/Plot";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
+import TotalWeightPlot from "../plot/TotalWeightPlot";
+import EstimatedMaxWeightPlot from "../plot/EstimatedMaxWeightPlot";
 
 // tableの見た目
 const useStyles = makeStyles({
@@ -76,6 +84,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
   const selectedLogIdDetail = details.filter(
     (detail) => detail.log === selectedLogId
   );
+  const plotType = useSelector(selectPlotType);
 
   let totalWeights: number = 0;
   // let totalTimes: number = 0;
@@ -198,6 +207,7 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
         onRequestClose={async () => {
           await dispatch(resetOpenPlot());
           await dispatch(setOpenLog());
+          await dispatch(resetPlotType());
         }}
         style={customStyles}
       >
@@ -207,15 +217,30 @@ const Log: React.FC<PROPS_LOG> = ({ logId, userLog, created_on, event }) => {
             onClick={async () => {
               await dispatch(resetOpenPlot());
               await dispatch(setOpenLog());
+              await dispatch(resetPlotType());
             }}
           >
             <IoIosCloseCircleOutline />
           </button>
           <div className={styles.detail_title_header}>
             <h3 className={styles.detail_title}>{selectedEventTitle}</h3>
+            <h3 className={styles.detail_title_between}> / </h3>
+            {plotType ? (
+              <h3 className={styles.detail_title}>Total Weight</h3>
+            ) : (
+              <h3 className={styles.detail_title}>Estimated Max Weight</h3>
+            )}
           </div>
+          <button
+            className={styles.log_btnModal}
+            onClick={async () => {
+              await dispatch(switchPlotType());
+            }}
+          >
+            <HiOutlineSwitchHorizontal />
+          </button>
         </div>
-        <Plot />
+        {plotType ? <TotalWeightPlot /> : <EstimatedMaxWeightPlot />}
       </Modal>
     </>
   );
