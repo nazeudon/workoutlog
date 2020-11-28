@@ -4,6 +4,7 @@
 }
 
 .newEvent_title {
+  color: gray;
   font-family: "Goldman", cursive;
   font-weight: normal;
   text-align: center;

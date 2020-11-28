@@ -55,6 +55,7 @@ const Detail: React.FC<PROPS_DETAIL> = ({
                 name="weight"
                 onChange={(e) => setEditWeight(e.target.value)}
                 value={editWeight}
+                autoFocus
               />
             </form>
           ) : (
@@ -64,6 +65,9 @@ const Detail: React.FC<PROPS_DETAIL> = ({
         <TableCell align="right">
           {isEdit ? (
             <form>
+              <button className={styles.detail_btnModal} onClick={updateDetail}>
+                <IoIosCheckmarkCircleOutline />
+              </button>
               <TextField
                 type="input"
                 name="times"

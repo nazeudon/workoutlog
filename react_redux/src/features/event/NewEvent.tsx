@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { TextField, Button, IconButton } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import styles from "./NewEvent.module.css";
 import {
   fetchAsyncNewEvent,
@@ -9,30 +9,21 @@ import {
   fetchPostStart,
   resetOpenNewEvent,
 } from "./eventSlice";
-import { File } from "../types";
-import { MdAddAPhoto } from "react-icons/md";
 
 const NewEvent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [img, setImg] = useState<File | null>(null);
 
   const addEvent = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const packet = {
       title: title,
-      img: img,
     };
 
     await dispatch(fetchPostStart());
     await dispatch(fetchAsyncNewEvent(packet));
     await dispatch(fetchPostEnd());
     await dispatch(resetOpenNewEvent());
-  };
-
-  const handlerEditPicture = () => {
-    const fileInput = document.getElementById("imgInput");
-    fileInput?.click();
   };
 
   return (
@@ -48,17 +39,7 @@ const NewEvent: React.FC = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <input
-          type="file"
-          id="imgInput"
-          hidden={true}
-          onChange={(e) => setImg(e.target.files![0])}
-        />
-
         <br />
-        <IconButton onClick={handlerEditPicture}>
-          <MdAddAPhoto />
-        </IconButton>
         <br />
 
         <Button
