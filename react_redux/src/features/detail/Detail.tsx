@@ -64,6 +64,9 @@ const Detail: React.FC<PROPS_DETAIL> = ({
         <TableCell align="right">
           {isEdit ? (
             <form>
+              <button className={styles.detail_btnModal} onClick={updateDetail}>
+                <IoIosCheckmarkCircleOutline />
+              </button>
               <TextField
                 type="input"
                 name="times"
