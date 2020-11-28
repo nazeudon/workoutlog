@@ -71,6 +71,24 @@ const EstimatedMaxWeightPlot: React.FC = () => {
     legend: {
       display: false,
     },
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "date",
+          },
+        },
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Estimated Max Weight (Kg)",
+          },
+        },
+      ],
+    },
   };
   return (
     <>

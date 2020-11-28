@@ -62,9 +62,9 @@ const customStyles = {
   content: {
     top: "55%",
     left: "50%",
-    width: "40%",
-    height: "40%",
-    padding: "50px",
+    width: "50%",
+    height: "50%",
+    padding: "1% 2%",
     transform: "translate(-50%, -50%)",
     backgroundColor: "rgb(240, 240, 240)",
   },

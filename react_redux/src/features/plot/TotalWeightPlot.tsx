@@ -64,6 +64,24 @@ const TotalWeightPlot: React.FC = () => {
     legend: {
       display: false,
     },
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "date",
+          },
+        },
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Total Weight (Kg)",
+          },
+        },
+      ],
+    },
   };
   return (
     <>
