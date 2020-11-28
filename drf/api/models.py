@@ -66,7 +66,9 @@ class Event(models.Model):
         related_name="userEvent",
         on_delete=models.CASCADE  # 紐づいているUserが削除されたとき連動して削除される
     )
-    img = models.ImageField(blank=True, null=True, upload_to=upload_event_path)
+    # img = models.ImageField(blank=True, null=True, upload_to=upload_event_path)
+    img = models.ImageField(blank=True, null=True,
+                            upload_to="events", default="events/maccho.png")
 
     def __str__(self) -> str:
         return self.title

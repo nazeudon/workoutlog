@@ -53,6 +53,21 @@ const customStyles = {
   },
 };
 
+const customAddEventStyles = {
+  overlay: {
+    backgroundColor: "rgba(250, 250, 250, 0.4)",
+  },
+  content: {
+    top: "35%",
+    left: "50%",
+    width: "10%",
+    height: "20%",
+    padding: "1% 2%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "rgb(240, 240, 240)",
+  },
+};
+
 // tableの見た目
 const useStyles = makeStyles({
   table: {
@@ -104,7 +119,7 @@ const Event: React.FC<PROPS_EVENT> = ({
         onRequestClose={async () => {
           await dispatch(resetOpenNewEvent());
         }}
-        style={customStyles}
+        style={customAddEventStyles}
       >
         <NewEvent />
       </Modal>

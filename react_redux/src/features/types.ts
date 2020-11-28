@@ -17,7 +17,6 @@ export interface PROPS_USERNAME {
 // eventSlice
 export interface PROPS_NEWEVENT {
   title: string;
-  img: File | null;
 }
 
 export interface PROPS_EVENT {
