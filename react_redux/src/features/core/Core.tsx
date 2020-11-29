@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Auth from "../auth/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
+import Auth from "../auth/Auth";
 import { selectEvents, selectIsLoadingEvent } from "../event/eventSlice";
 import {
   fetchAsyncGetMyProf,
@@ -25,11 +25,26 @@ import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
 import { fetchAsyncGetDetails, resetDetails } from "../detail/detailSlice";
 import styles from "./Core.module.css";
 import { FaDumbbell } from "react-icons/fa";
-import { Button, Grid, CircularProgress } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  CircularProgress,
+  Card,
+  makeStyles,
+  Typography,
+  CardContent,
+} from "@material-ui/core";
 import Event from "../event/Event";
+
+const useStyles = makeStyles({
+  title: {
+    fontSize: 14,
+  },
+});
 
 const Core: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const classes = useStyles();
   const events = useSelector(selectEvents);
   const isLoadingAuth = useSelector(selectIsLoadingAuth);
   const isLoadingEvent = useSelector(selectIsLoadingEvent);
@@ -99,12 +114,26 @@ const Core: React.FC = () => {
       {isJwt && (
         <>
           <div className={styles.core_posts}>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
+              <Grid xs={12} className={styles.event_header}>
+                {/* <Card className={classes.root}>
+                  <CardContent> */}
+                <Typography
+                  className={styles.event_title}
+                  variant="h4"
+                  align="center"
+                >
+                  ここにカテゴリーが入る
+                </Typography>
+                {/* </CardContent>
+                </Card> */}
+              </Grid>
               {loginedIdEvents.map((event) => (
                 <Grid key={event.id} item xs={12} md={4}>
                   <Event
                     eventId={event.id}
                     title={event.title}
+                    category={event.category}
                     userEvent={event.userEvent}
                     imageUrl={event.img}
                   />

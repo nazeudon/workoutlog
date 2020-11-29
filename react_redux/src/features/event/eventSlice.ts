@@ -32,10 +32,13 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   }
 );
 
+export const categories: string[] = ["胸", "背中", "肩", "腕", "足"];
+
 const initialEvents = [
   {
     id: 0,
     title: "",
+    category: "",
     userEvent: 0,
     img: "",
   },
