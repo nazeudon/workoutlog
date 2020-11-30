@@ -50,7 +50,7 @@
 .event_title {
   font-family: "Goldman", cursive;
   font-weight: bold !important;
-  margin-bottom: 1px;
-  padding-top: 3px;
+  /* margin-bottom: 1px; */
+  /* padding-top: 3px; */
   /* font-size: 28px !important; */
 }

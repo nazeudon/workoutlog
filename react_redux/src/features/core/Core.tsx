@@ -20,31 +20,18 @@ import {
   fetchAsyncGetEvents,
   setOpenNewEvent,
   resetEvents,
+  categories,
+  EVENT_BY_CATEGORY,
 } from "../event/eventSlice";
 import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
 import { fetchAsyncGetDetails, resetDetails } from "../detail/detailSlice";
 import styles from "./Core.module.css";
 import { FaDumbbell } from "react-icons/fa";
-import {
-  Button,
-  Grid,
-  CircularProgress,
-  Card,
-  makeStyles,
-  Typography,
-  CardContent,
-} from "@material-ui/core";
+import { Button, Grid, CircularProgress, Typography } from "@material-ui/core";
 import Event from "../event/Event";
-
-const useStyles = makeStyles({
-  title: {
-    fontSize: 14,
-  },
-});
 
 const Core: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const classes = useStyles();
   const events = useSelector(selectEvents);
   const isLoadingAuth = useSelector(selectIsLoadingAuth);
   const isLoadingEvent = useSelector(selectIsLoadingEvent);
@@ -53,6 +40,38 @@ const Core: React.FC = () => {
   const loginedIdEvents = events.filter(
     (event) => myProfile.userProfile === event.userEvent
   );
+  const loginedIdEventsByCategory: EVENT_BY_CATEGORY = {
+    Chest: [],
+    Back: [],
+    Sholder: [],
+    Arm: [],
+    Leg: [],
+  };
+
+  loginedIdEvents.forEach((event) => {
+    const cat = event.category;
+    switch (cat) {
+      case "Chest":
+        loginedIdEventsByCategory.Chest.push(event);
+        break;
+      case "Back":
+        loginedIdEventsByCategory.Back.push(event);
+        break;
+      case "Sholder":
+        loginedIdEventsByCategory.Sholder.push(event);
+        break;
+      case "Arm":
+        loginedIdEventsByCategory.Arm.push(event);
+        break;
+      case "Leg":
+        loginedIdEventsByCategory.Leg.push(event);
+        break;
+      default:
+        console.log("Nothing Category Type.");
+    }
+  });
+
+  console.log(loginedIdEventsByCategory);
 
   useEffect(() => {
     const fetchBootLoader = async () => {
@@ -116,17 +135,9 @@ const Core: React.FC = () => {
           <div className={styles.core_posts}>
             <Grid container spacing={2}>
               <Grid xs={12} className={styles.event_header}>
-                {/* <Card className={classes.root}>
-                  <CardContent> */}
-                <Typography
-                  className={styles.event_title}
-                  variant="h4"
-                  align="center"
-                >
-                  ここにカテゴリーが入る
+                <Typography variant="h4" align="center">
+                  <div className={styles.event_title}>Chest</div>
                 </Typography>
-                {/* </CardContent>
-                </Card> */}
               </Grid>
               {loginedIdEvents.map((event) => (
                 <Grid key={event.id} item xs={12} md={4}>

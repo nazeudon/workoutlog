@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { PROPS_NEWEVENT } from "../types";
+import { PROPS_NEWEVENT, PROPS_EVENT } from "../types";
 
 const apiUrlEvent = `${process.env.REACT_APP_DEV_API_URL}/api/event/`;
 
@@ -32,7 +32,21 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   }
 );
 
-export const categories: string[] = ["胸", "背中", "肩", "腕", "足"];
+export const categories: string[] = ["Chest", "Back", "Sholder", "Arm", "Leg"];
+export interface CAT_PROPS {
+  id: number;
+  title: string;
+  category: string;
+  userEvent: number;
+  img: string;
+}
+export interface EVENT_BY_CATEGORY {
+  Chest: CAT_PROPS[];
+  Back: CAT_PROPS[];
+  Sholder: CAT_PROPS[];
+  Arm: CAT_PROPS[];
+  Leg: CAT_PROPS[];
+}
 
 const initialEvents = [
   {
