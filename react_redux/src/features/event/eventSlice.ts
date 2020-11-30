@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import axios from "axios";
-import { PROPS_NEWEVENT, PROPS_EVENT } from "../types";
+import { PROPS_NEWEVENT } from "../types";
 
 const apiUrlEvent = `${process.env.REACT_APP_DEV_API_URL}/api/event/`;
 

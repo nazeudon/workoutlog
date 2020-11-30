@@ -20,7 +20,6 @@ import {
   fetchAsyncGetEvents,
   setOpenNewEvent,
   resetEvents,
-  categories,
   EVENT_BY_CATEGORY,
 } from "../event/eventSlice";
 import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
@@ -40,6 +39,7 @@ const Core: React.FC = () => {
   const loginedIdEvents = events.filter(
     (event) => myProfile.userProfile === event.userEvent
   );
+
   const loginedIdEventsByCategory: EVENT_BY_CATEGORY = {
     Chest: [],
     Back: [],
@@ -49,25 +49,9 @@ const Core: React.FC = () => {
   };
 
   loginedIdEvents.forEach((event) => {
-    const cat = event.category;
-    switch (cat) {
-      case "Chest":
-        loginedIdEventsByCategory.Chest.push(event);
-        break;
-      case "Back":
-        loginedIdEventsByCategory.Back.push(event);
-        break;
-      case "Sholder":
-        loginedIdEventsByCategory.Sholder.push(event);
-        break;
-      case "Arm":
-        loginedIdEventsByCategory.Arm.push(event);
-        break;
-      case "Leg":
-        loginedIdEventsByCategory.Leg.push(event);
-        break;
-      default:
-        console.log("Nothing Category Type.");
+    const cat: keyof EVENT_BY_CATEGORY = event.category as keyof EVENT_BY_CATEGORY;
+    if (cat) {
+      loginedIdEventsByCategory[cat].push(event);
     }
   });
 
