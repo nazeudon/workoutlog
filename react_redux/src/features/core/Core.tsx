@@ -120,6 +120,7 @@ const Core: React.FC = () => {
           <div className={styles.core_posts}>
             <Grid container spacing={2}>
               {categories.map((cat) => {
+                const cat_key: keyof EVENT_BY_CATEGORY = cat as keyof EVENT_BY_CATEGORY;
                 return (
                   <>
                     <Grid item key={1} xs={12} className={styles.event_header}>
@@ -127,7 +128,7 @@ const Core: React.FC = () => {
                         <div className={styles.event_title}>{cat}</div>
                       </Typography>
                     </Grid>
-                    {loginedIdEvents.map((event) => {
+                    {loginedIdEventsByCategory[cat_key].map((event) => {
                       return (
                         <Grid key={event.id} item xs={12} md={4}>
                           <Event
