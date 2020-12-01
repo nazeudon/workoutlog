@@ -20,6 +20,7 @@ import {
   fetchAsyncGetEvents,
   setOpenNewEvent,
   resetEvents,
+  categories,
   EVENT_BY_CATEGORY,
 } from "../event/eventSlice";
 import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
@@ -55,7 +56,7 @@ const Core: React.FC = () => {
     }
   });
 
-  console.log(loginedIdEventsByCategory);
+  // console.log(loginedIdEventsByCategory);
 
   useEffect(() => {
     const fetchBootLoader = async () => {
@@ -118,11 +119,13 @@ const Core: React.FC = () => {
         <>
           <div className={styles.core_posts}>
             <Grid container spacing={2}>
-              <Grid xs={12} className={styles.event_header}>
-                <Typography variant="h4" align="center">
-                  <div className={styles.event_title}>Chest</div>
-                </Typography>
-              </Grid>
+              {categories.map((cat) => (
+                <Grid item key={1} xs={12} className={styles.event_header}>
+                  <Typography variant="h4" align="center">
+                    <div className={styles.event_title}>{cat}</div>
+                  </Typography>
+                </Grid>
+              ))}
               {loginedIdEvents.map((event) => (
                 <Grid key={event.id} item xs={12} md={4}>
                   <Event
