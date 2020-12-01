@@ -119,24 +119,30 @@ const Core: React.FC = () => {
         <>
           <div className={styles.core_posts}>
             <Grid container spacing={2}>
-              {categories.map((cat) => (
-                <Grid item key={1} xs={12} className={styles.event_header}>
-                  <Typography variant="h4" align="center">
-                    <div className={styles.event_title}>{cat}</div>
-                  </Typography>
-                </Grid>
-              ))}
-              {loginedIdEvents.map((event) => (
-                <Grid key={event.id} item xs={12} md={4}>
-                  <Event
-                    eventId={event.id}
-                    title={event.title}
-                    category={event.category}
-                    userEvent={event.userEvent}
-                    imageUrl={event.img}
-                  />
-                </Grid>
-              ))}
+              {categories.map((cat) => {
+                return (
+                  <>
+                    <Grid item key={1} xs={12} className={styles.event_header}>
+                      <Typography variant="h4" align="center">
+                        <div className={styles.event_title}>{cat}</div>
+                      </Typography>
+                    </Grid>
+                    {loginedIdEvents.map((event) => {
+                      return (
+                        <Grid key={event.id} item xs={12} md={4}>
+                          <Event
+                            eventId={event.id}
+                            title={event.title}
+                            category={event.category}
+                            userEvent={event.userEvent}
+                            imageUrl={event.img}
+                          />
+                        </Grid>
+                      );
+                    })}
+                  </>
+                );
+              })}
             </Grid>
           </div>
         </>
