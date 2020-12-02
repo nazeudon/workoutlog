@@ -21,6 +21,7 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   async (newEvent: PROPS_NEWEVENT) => {
     const uploadData = new FormData();
     uploadData.append("title", newEvent.title);
+    uploadData.append("category", newEvent.category);
     // newEvent.img && uploadData.append("img", newEvent.img, newEvent.img.name);
     const res = await axios.post(apiUrlEvent, uploadData, {
       headers: {

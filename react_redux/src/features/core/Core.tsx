@@ -56,8 +56,6 @@ const Core: React.FC = () => {
     }
   });
 
-  // console.log(loginedIdEventsByCategory);
-
   useEffect(() => {
     const fetchBootLoader = async () => {
       if (localStorage.localJWT) {
