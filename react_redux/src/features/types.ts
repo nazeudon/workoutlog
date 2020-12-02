@@ -17,11 +17,13 @@ export interface PROPS_USERNAME {
 // eventSlice
 export interface PROPS_NEWEVENT {
   title: string;
+  category: string;
 }
 
 export interface PROPS_EVENT {
   eventId: number;
   title: string;
+  category: string;
   userEvent: number;
   imageUrl: string;
 }

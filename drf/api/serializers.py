@@ -29,7 +29,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ("id", "title", "userEvent", "img")
+        fields = ("id", "title", "category", "userEvent", "img")
         extra_kwargs = {"userEvent": {"read_only": True}}
 
 

@@ -40,7 +40,7 @@ import { setOpenPlot } from "../plot/plotSlice";
 //モーダルウィンドウの見た目をカスタム
 const customStyles = {
   overlay: {
-    backgroundColor: "rgba(250, 250, 250, 0.4)",
+    backgroundColor: "rgba(250, 250, 250, 0.2)",
   },
   content: {
     top: "55%",
@@ -55,13 +55,14 @@ const customStyles = {
 
 const customAddEventStyles = {
   overlay: {
-    backgroundColor: "rgba(250, 250, 250, 0.4)",
+    backgroundColor: "rgba(250, 250, 250, 0.2)",
+    // backgroundColor: "transparent",
   },
   content: {
     top: "35%",
     left: "50%",
-    width: "10%",
-    height: "20%",
+    width: "30%",
+    height: "30%",
     padding: "1% 2%",
     transform: "translate(-50%, -50%)",
     backgroundColor: "rgb(240, 240, 240)",

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Auth from "../auth/Auth";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
+import Auth from "../auth/Auth";
 import { selectEvents, selectIsLoadingEvent } from "../event/eventSlice";
 import {
   fetchAsyncGetMyProf,
@@ -20,12 +20,14 @@ import {
   fetchAsyncGetEvents,
   setOpenNewEvent,
   resetEvents,
+  categories,
+  EVENT_BY_CATEGORY,
 } from "../event/eventSlice";
 import { fetchAsyncGetLogs, resetLogs } from "../log/logSlice";
 import { fetchAsyncGetDetails, resetDetails } from "../detail/detailSlice";
 import styles from "./Core.module.css";
 import { FaDumbbell } from "react-icons/fa";
-import { Button, Grid, CircularProgress } from "@material-ui/core";
+import { Button, Grid, CircularProgress, Typography } from "@material-ui/core";
 import Event from "../event/Event";
 
 const Core: React.FC = () => {
@@ -38,6 +40,21 @@ const Core: React.FC = () => {
   const loginedIdEvents = events.filter(
     (event) => myProfile.userProfile === event.userEvent
   );
+
+  const loginedIdEventsByCategory: EVENT_BY_CATEGORY = {
+    Chest: [],
+    Back: [],
+    Sholder: [],
+    Arm: [],
+    Leg: [],
+  };
+
+  loginedIdEvents.forEach((event) => {
+    const cat: keyof EVENT_BY_CATEGORY = event.category as keyof EVENT_BY_CATEGORY;
+    if (cat) {
+      loginedIdEventsByCategory[cat].push(event);
+    }
+  });
 
   useEffect(() => {
     const fetchBootLoader = async () => {
@@ -99,17 +116,32 @@ const Core: React.FC = () => {
       {isJwt && (
         <>
           <div className={styles.core_posts}>
-            <Grid container spacing={4}>
-              {loginedIdEvents.map((event) => (
-                <Grid key={event.id} item xs={12} md={4}>
-                  <Event
-                    eventId={event.id}
-                    title={event.title}
-                    userEvent={event.userEvent}
-                    imageUrl={event.img}
-                  />
-                </Grid>
-              ))}
+            <Grid container spacing={2}>
+              {categories.map((cat) => {
+                const cat_key: keyof EVENT_BY_CATEGORY = cat as keyof EVENT_BY_CATEGORY;
+                return (
+                  <>
+                    <Grid item key={1} xs={12} className={styles.event_header}>
+                      <Typography variant="h4" align="center">
+                        <div className={styles.event_title}>{cat}</div>
+                      </Typography>
+                    </Grid>
+                    {loginedIdEventsByCategory[cat_key].map((event) => {
+                      return (
+                        <Grid key={event.id} item xs={12} md={4}>
+                          <Event
+                            eventId={event.id}
+                            title={event.title}
+                            category={event.category}
+                            userEvent={event.userEvent}
+                            imageUrl={event.img}
+                          />
+                        </Grid>
+                      );
+                    })}
+                  </>
+                );
+              })}
             </Grid>
           </div>
         </>

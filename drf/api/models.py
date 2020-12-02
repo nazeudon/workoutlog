@@ -61,6 +61,7 @@ class Profile(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=30)
+    category = models.CharField(max_length=10)
     userEvent = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="userEvent",

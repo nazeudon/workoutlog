@@ -21,6 +21,7 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   async (newEvent: PROPS_NEWEVENT) => {
     const uploadData = new FormData();
     uploadData.append("title", newEvent.title);
+    uploadData.append("category", newEvent.category);
     // newEvent.img && uploadData.append("img", newEvent.img, newEvent.img.name);
     const res = await axios.post(apiUrlEvent, uploadData, {
       headers: {
@@ -32,10 +33,27 @@ export const fetchAsyncNewEvent = createAsyncThunk(
   }
 );
 
+export const categories: string[] = ["Chest", "Back", "Sholder", "Arm", "Leg"];
+export interface CAT_PROPS {
+  id: number;
+  title: string;
+  category: string;
+  userEvent: number;
+  img: string;
+}
+export interface EVENT_BY_CATEGORY {
+  Chest: CAT_PROPS[];
+  Back: CAT_PROPS[];
+  Sholder: CAT_PROPS[];
+  Arm: CAT_PROPS[];
+  Leg: CAT_PROPS[];
+}
+
 const initialEvents = [
   {
     id: 0,
     title: "",
+    category: "",
     userEvent: 0,
     img: "",
   },
